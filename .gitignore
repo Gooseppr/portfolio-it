@@ -1,0 +1,18 @@
+# Notes & sources de travail (ne pas publier — seul le site va dans git)
+portfolio_full_summary.md
+portfolio_projects_metadata.json
+
+# Documents personnels (CV, profil) — ne pas publier sur un repo public
+*.pdf
+
+# OS / éditeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Divers
+*.log
+*.tmp
+node_modules/
