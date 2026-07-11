@@ -160,6 +160,11 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .skill-card.professional .skill-level-badge{font-weight:600;box-shadow:inset 0 0 0 1px rgba(45,106,79,.15)}
 .skill-card.featured{border-color:rgba(200,169,110,.34);box-shadow:0 10px 24px rgba(200,169,110,.12)}
 .skill-card.featured::before{content:'';position:absolute;inset:0 auto auto 0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),transparent)}
+.skill-card.priority{grid-column:span 2;min-height:132px;padding:1.1rem 1.15rem 1rem;border-color:rgba(45,106,79,.32);box-shadow:0 12px 28px rgba(45,106,79,.12)}
+.skill-card.priority .skill-name{font-size:1.16rem;line-height:1.16;margin-bottom:.7rem}
+.skill-card.priority .skill-level-badge{font-size:.62rem;padding:.18rem .5rem}
+.skill-card.priority .skill-domain{font-size:.61rem}
+.skill-card.priority .skill-tooltip{max-width:min(420px,88vw)}
 .skill-card.project{background:rgba(255,255,255,.64)}
 .skill-card.learning{opacity:.78;filter:saturate(.86)}
 .skill-card.learning .skill-name{font-size:.95rem}
@@ -510,10 +515,12 @@ function renderSkills() {
     const lvlColor = LEVEL_COLORS[skill.level] || '#888';
     const lvlBg = LEVEL_BG[skill.level] || 'rgba(0,0,0,.05)';
     const ctx = (skill.contexts||[]).join(' · ');
+    const priorityNames = ['Business Central','PowerShell','SQL','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','S1000D'];
     const featuredNames = ['Business Central','PowerShell','SQL','S1000D','XML','Freshdesk','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)'];
+    const isPriority = priorityNames.includes(skill.name);
     const isFeatured = featuredNames.includes(skill.name);
     const levelClass = skill.level === 'Expérience professionnelle' ? 'professional' : skill.level === 'En apprentissage' ? 'learning' : 'project';
-    const cardClass = `skill-card ${levelClass}${isFeatured ? ' featured' : ''}`;
+    const cardClass = `skill-card ${levelClass}${isPriority ? ' priority' : ''}${isFeatured && !isPriority ? ' featured' : ''}`;
     return `<div class="${cardClass}" style="border-color:${famColor}33;animation:fadeCard .25s ${i*0.02}s ease both">
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${famColor};border-radius:2px 2px 0 0"></div>
       <div class="skill-name">${skill.name}</div>
