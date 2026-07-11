@@ -155,6 +155,14 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:.85rem;margin-bottom:2rem}
 .skill-card{position:relative;border:1px solid var(--border);border-radius:4px;padding:1rem 1rem .9rem;background:var(--card-bg);overflow:hidden;transition:transform .2s,box-shadow .2s}
 .skill-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(26,26,24,.06)}
+.skill-card.professional{border-color:rgba(45,106,79,.28);background:linear-gradient(135deg,rgba(255,255,255,.9),rgba(45,106,79,.07));box-shadow:0 10px 24px rgba(45,106,79,.08)}
+.skill-card.professional .skill-name{font-size:1.03rem}
+.skill-card.professional .skill-level-badge{font-weight:600;box-shadow:inset 0 0 0 1px rgba(45,106,79,.15)}
+.skill-card.featured{border-color:rgba(200,169,110,.34);box-shadow:0 10px 24px rgba(200,169,110,.12)}
+.skill-card.featured::before{content:'';position:absolute;inset:0 auto auto 0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),transparent)}
+.skill-card.project{background:rgba(255,255,255,.64)}
+.skill-card.learning{opacity:.78;filter:saturate(.86)}
+.skill-card.learning .skill-name{font-size:.95rem}
 .skill-name{font-family:var(--serif);font-size:1rem;line-height:1.2;margin-bottom:.55rem}
 .skill-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem}
 .skill-level-badge{font-family:var(--mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;padding:.14rem .44rem;border-radius:2px}
@@ -502,7 +510,11 @@ function renderSkills() {
     const lvlColor = LEVEL_COLORS[skill.level] || '#888';
     const lvlBg = LEVEL_BG[skill.level] || 'rgba(0,0,0,.05)';
     const ctx = (skill.contexts||[]).join(' · ');
-    return `<div class="skill-card" style="border-color:${famColor}33;animation:fadeCard .25s ${i*0.02}s ease both">
+    const featuredNames = ['Business Central','PowerShell','SQL','S1000D','XML','Freshdesk','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)'];
+    const isFeatured = featuredNames.includes(skill.name);
+    const levelClass = skill.level === 'Expérience professionnelle' ? 'professional' : skill.level === 'En apprentissage' ? 'learning' : 'project';
+    const cardClass = `skill-card ${levelClass}${isFeatured ? ' featured' : ''}`;
+    return `<div class="${cardClass}" style="border-color:${famColor}33;animation:fadeCard .25s ${i*0.02}s ease both">
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${famColor};border-radius:2px 2px 0 0"></div>
       <div class="skill-name">${skill.name}</div>
       <div class="skill-meta">
