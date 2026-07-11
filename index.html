@@ -160,11 +160,9 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .skill-card.professional .skill-level-badge{font-weight:600;box-shadow:inset 0 0 0 1px rgba(45,106,79,.15)}
 .skill-card.featured{border-color:rgba(200,169,110,.34);box-shadow:0 10px 24px rgba(200,169,110,.12)}
 .skill-card.featured::before{content:'';position:absolute;inset:0 auto auto 0;height:3px;width:100%;background:linear-gradient(90deg,var(--gold),transparent)}
-.skill-card.priority{grid-column:span 2;min-height:132px;padding:1.05rem 1.15rem 1rem;border-color:rgba(45,106,79,.3);box-shadow:0 12px 26px rgba(45,106,79,.12);background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(45,106,79,.07));transform:translateY(-2px)}
-.skill-card.priority .skill-name{font-size:1.12rem;line-height:1.16;margin-bottom:.7rem}
-.skill-card.priority .skill-level-badge{font-size:.6rem;padding:.16rem .46rem}
-.skill-card.priority .skill-domain{font-size:.6rem}
-.skill-card.priority .skill-tooltip{max-width:min(420px,88vw)}
+.skill-card.priority{grid-column:span 2;border-color:rgba(45,106,79,.24);box-shadow:0 4px 12px rgba(26,26,24,.04)}
+.skill-card.priority .skill-name{font-size:1rem}
+.skill-card.priority .skill-level-badge{font-size:.56rem}
 .skill-card.project{background:rgba(255,255,255,.64)}
 .skill-card.learning{opacity:.78;filter:saturate(.86)}
 .skill-card.learning .skill-name{font-size:.95rem}
@@ -445,7 +443,7 @@ const PROJETS_PERSO = [
 const SKILL_DATA = [
   {name:'Business Central',family:'erp',domain:'ERP',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Usage client / Support']},
   {name:'PowerShell',family:'dev',domain:'Automatisation',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Support automation','Ops scripts']},
-  {name:'Python',family:'dev',domain:'Scripting',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['Projets perso','APIs','Automation']},
+  {name:'Python',family:'dev',domain:'Scripting',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['Projets perso','APIs','Automation']},
   {name:'Linux',family:'devops',domain:'Système',level:'Utilisé en formation',tags:['Utilisé en formation','Utilisé dans mes projets'],contexts:['La Capsule (formation)','Projets DevOps']},
   {name:'Docker',family:'devops',domain:'Conteneurisation',level:'Utilisé en formation',tags:['Utilisé en formation','Utilisé dans mes projets'],contexts:['Projets DevOps','devlauncher']},
   {name:'Docker Compose',family:'devops',domain:'Conteneurisation',level:'Utilisé en formation',tags:['Utilisé en formation','Utilisé dans mes projets'],contexts:['Local dev','devlauncher']},
@@ -454,24 +452,24 @@ const SKILL_DATA = [
   {name:'Terraform',family:'devops',domain:'IaC',level:'Utilisé en formation',tags:['Utilisé en formation','Utilisé dans mes projets'],contexts:['QuickData','AWS provisioning']},
   {name:'AWS',family:'devops',domain:'Cloud',level:'Utilisé en formation',tags:['Utilisé en formation','Utilisé dans mes projets'],contexts:['QuickData','S3 backups']},
   {name:'Traefik',family:'devops',domain:'Infra',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['Routing','QuickData']},
-  {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData monitoring']},
-  {name:'Grafana',family:'devops',domain:'Monitoring',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData dashboards']},
-  {name:'GitLab CI/CD',family:'devops',domain:'CI/CD',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData']},
+  {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData monitoring']},
+  {name:'Grafana',family:'devops',domain:'Monitoring',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData dashboards']},
+  {name:'GitLab CI/CD',family:'devops',domain:'CI/CD',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData']},
   {name:'Git et GitLab',family:'devops',domain:'VCS',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData','CPI Software','Delsey']},
-  {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData','Project DBs']},
+  {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData','Project DBs']},
   {name:'FastAPI',family:'dev',domain:'API',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['AppOrgappr API','S1000D API']},
   {name:'PyTest',family:'dev',domain:'Tests',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['AppOrgappr tests','CI pipelines']},
-  {name:'SQL',family:'dev',domain:'Data',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','Utilisé dans mes projets'],contexts:['CPI Software','Delsey (SQL Server)','DataBird','QuickData (PostgreSQL)']},
+  {name:'SQL',family:'dev',domain:'Data',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','Utilisé en formation'],contexts:['CPI Software','Delsey (SQL Server)','DataBird','QuickData (PostgreSQL)']},
   {name:'XML',family:'doc',domain:'Balisage',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','Utilisé dans mes projets'],contexts:['SNCF (alternance)','Projet S1000D']},
   {name:'S1000D',family:'doc',domain:'Documentation',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','Utilisé dans mes projets'],contexts:['SNCF (alternance)','Projet S1000D']},
   {name:'Freshdesk',family:'itsm',domain:'ITSM',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Orosound (ticketing)']},
   {name:'Tests fonctionnels',family:'itsm',domain:'QA',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Delsey','Orosound']},
   {name:'Analyse logs',family:'itsm',domain:'Diagnostic',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Support N1/N2','Delsey','Orosound','Production troubleshooting']},
   {name:'Flux inter-applicatifs (FTP/SFTP/EDI)',family:'itsm',domain:'Intégration',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Delsey (EDI/FTP)','Supervision de flux','Batch processing']},
-  {name:'Power Platform',family:'erp',domain:'Power Platform',level:'En apprentissage',tags:['Utilisé en formation','En apprentissage'],contexts:['La Capsule (formation)','Vu en entreprise (Delsey)']},
-  {name:'Power BI',family:'erp',domain:'Power Platform',level:'Utilisé en formation',tags:['Utilisé en formation','En apprentissage'],contexts:['DataBird']},
-  {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'En apprentissage',tags:['Utilisé en formation','En apprentissage'],contexts:['La Capsule (formation)']},
-  {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'En apprentissage',tags:['Utilisé en formation','En apprentissage'],contexts:['La Capsule (formation)']}
+  {name:'Power Platform',family:'erp',domain:'Power Platform',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','En apprentissage'],contexts:['Découvert chez Delsey','Apprentissage autodidacte']},
+  {name:'Power BI',family:'erp',domain:'Power Platform',level:'Utilisé en formation',tags:['Utilisé en formation'],contexts:['DataBird']},
+  {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'Utilisé en formation',tags:['Utilisé en formation'],contexts:['La Capsule (formation)']},
+  {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'Utilisé en formation',tags:['Utilisé en formation'],contexts:['La Capsule (formation)']}
 ];
 
 const FAMILIES = [
