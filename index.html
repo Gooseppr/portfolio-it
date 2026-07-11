@@ -202,6 +202,17 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 .modal-gallery-item{border:1px solid var(--border);border-radius:3px;overflow:hidden;aspect-ratio:1;background:#f0ebe0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,border-color .2s}
 .modal-gallery-item:hover{transform:scale(1.03);border-color:var(--gold)}
 .modal-gallery-item img{width:100%;height:100%;object-fit:cover}
+/* LIGHTBOX */
+.lightbox-overlay{position:fixed;inset:0;background:rgba(26,26,24,.85);z-index:300;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.lightbox-overlay.open{display:flex}
+.lightbox-container{position:relative;max-width:90vw;max-height:90vh}
+.lightbox-img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.lightbox-close{position:absolute;top:-40px;right:0;background:none;border:none;font-size:2rem;color:var(--cream);cursor:pointer;padding:0;width:40px;height:40px;display:flex;align-items:center;justify-content:center;transition:opacity .2s}
+.lightbox-close:hover{opacity:.7}
+.lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:var(--cream);font-size:1.5rem;padding:.6rem 1rem;cursor:pointer;border-radius:3px;transition:background .2s;display:none}
+.lightbox-prev:hover,.lightbox-next:hover{background:rgba(255,255,255,.25)}
+.lightbox-prev{left:-80px}
+.lightbox-next{right:-80px}
 .modal-badge.perso{background:rgba(26,26,24,.06);border:1px solid var(--border);color:var(--muted)}
 .modal-badge.pro-proj{background:rgba(45,106,79,.08);border:1px solid rgba(45,106,79,.25);color:var(--jade)}
 .modal-badge.formation{background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);color:var(--gold)}
@@ -363,6 +374,15 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
   </div>
 </div>
 
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <div class="lightbox-container">
+    <button class="lightbox-close" onclick="closeLightbox({target:{id:'lightbox-overlay'}})">✕</button>
+    <img id="lightbox-img" class="lightbox-img" src="" alt=""/>
+    <button class="lightbox-prev" id="lightbox-prev" onclick="prevLightbox()">← Prec</button>
+    <button class="lightbox-next" id="lightbox-next" onclick="nextLightbox()">Suiv →</button>
+  </div>
+</div>
+
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
@@ -399,37 +419,38 @@ const PROJETS_PERSO = [
 ];
 
 const SKILL_DATA = [
-  {name:'Business Central',family:'erp',domain:'ERP',level:'Expérience professionnelle'},
-  {name:'PowerShell',family:'dev',domain:'Automatisation',level:'Expérience professionnelle'},
-  {name:'Python',family:'dev',domain:'Scripting',level:'Expérience professionnelle'},
-  {name:'Linux',family:'devops',domain:'Système',level:'Expérience professionnelle'},
-  {name:'Docker',family:'devops',domain:'Conteneurisation',level:'Utilisé en projet'},
-  {name:'Docker Compose',family:'devops',domain:'Conteneurisation',level:'Utilisé en projet'},
-  {name:'Ansible',family:'devops',domain:'IaC',level:'Utilisé en projet'},
-  {name:'Terraform',family:'devops',domain:'IaC',level:'Utilisé en projet'},
-  {name:'AWS',family:'devops',domain:'Cloud',level:'Utilisé en projet'},
-  {name:'Traefik',family:'devops',domain:'Infra',level:'Utilisé en projet'},
-  {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Utilisé en projet'},
-  {name:'Grafana',family:'devops',domain:'Monitoring',level:'Utilisé en projet'},
-  {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé en projet'},
-  {name:'FastAPI',family:'dev',domain:'API',level:'Utilisé en projet'},
-  {name:'PyTest',family:'dev',domain:'Tests',level:'Utilisé en projet'},
-  {name:'SQL',family:'dev',domain:'Data',level:'Connaissances pratiques'},
-  {name:'XML',family:'dev',domain:'Balisage',level:'Connaissances pratiques'},
-  {name:'S1000D',family:'itsm',domain:'Documentation',level:'Connaissances pratiques'},
-  {name:'Freshdesk',family:'itsm',domain:'ITSM',level:'Connaissances pratiques'},
-  {name:'Tests fonctionnels',family:'itsm',domain:'QA',level:'Connaissances pratiques'},
-  {name:'Analyse logs',family:'itsm',domain:'Diagnostic',level:'Connaissances pratiques'},
-  {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'En apprentissage'},
-  {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'En apprentissage'},
-  {name:'Power BI',family:'erp',domain:'Power Platform',level:'En apprentissage'}
+  {name:'Business Central',family:'erp',domain:'ERP',level:'Expérience professionnelle',contexts:['Usage client / Support']},
+  {name:'PowerShell',family:'dev',domain:'Automatisation',level:'Expérience professionnelle',contexts:['Support automation','Ops scripts']},
+  {name:'Python',family:'dev',domain:'Scripting',level:'Expérience professionnelle',contexts:['Projets perso','APIs','Automation']},
+  {name:'Linux',family:'devops',domain:'Système',level:'Utilisé en projet',contexts:['La Capsule (formation)','Projets DevOps']},
+  {name:'Docker',family:'devops',domain:'Conteneurisation',level:'Utilisé en projet',contexts:['Projets DevOps','devlauncher']},
+  {name:'Docker Compose',family:'devops',domain:'Conteneurisation',level:'Utilisé en projet',contexts:['Local dev','devlauncher']},
+  {name:'Ansible',family:'devops',domain:'IaC',level:'Utilisé en projet',contexts:['QuickData','infra automation']},
+  {name:'Terraform',family:'devops',domain:'IaC',level:'Utilisé en projet',contexts:['QuickData','AWS provisioning']},
+  {name:'AWS',family:'devops',domain:'Cloud',level:'Utilisé en projet',contexts:['QuickData','S3 backups']},
+  {name:'Traefik',family:'devops',domain:'Infra',level:'Utilisé en projet',contexts:['Routing','QuickData']},
+  {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Utilisé en projet',contexts:['QuickData monitoring']},
+  {name:'Grafana',family:'devops',domain:'Monitoring',level:'Utilisé en projet',contexts:['QuickData dashboards']},
+  {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé en projet',contexts:['QuickData','Project DBs']},
+  {name:'FastAPI',family:'dev',domain:'API',level:'Utilisé en projet',contexts:['AppOrgappr API','S1000D API']},
+  {name:'PyTest',family:'dev',domain:'Tests',level:'Utilisé en projet',contexts:['AppOrgappr tests','CI pipelines']},
+  {name:'SQL',family:'dev',domain:'Data',level:'Connaissances pratiques',contexts:['SNCF','QuickData']},
+  {name:'XML',family:'doc',domain:'Balisage',level:'Connaissances pratiques',contexts:['SNCF (alternance)','S1000D projet']},
+  {name:'S1000D',family:'doc',domain:'Documentation',level:'Connaissances pratiques',contexts:['SNCF (alternance)','Projet S1000D']},
+  {name:'Freshdesk',family:'itsm',domain:'ITSM',level:'Connaissances pratiques',contexts:['EnvOrosound integration','Support workflows']},
+  {name:'Tests fonctionnels',family:'itsm',domain:'QA',level:'Connaissances pratiques',contexts:['Support validation','Acceptance tests']},
+  {name:'Analyse logs',family:'itsm',domain:'Diagnostic',level:'Connaissances pratiques',contexts:['Support N1/N2','Production troubleshooting']},
+  {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'En apprentissage',contexts:['Pipelines basiques']},
+  {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'En apprentissage',contexts:['Labs & training']},
+  {name:'Power BI',family:'erp',domain:'Power Platform',level:'En apprentissage',contexts:['Formations & démo']}
 ];
 
 const FAMILIES = [
   {id:'devops', label:'DevOps & Cloud',          color:'#2D6A4F'},
   {id:'dev',    label:'Développement & Data',     color:'#C8A96E'},
   {id:'itsm',   label:'Logiciel & ITSM',          color:'#C1440E'},
-  {id:'erp',    label:'ERP & Métier',             color:'#4A6A8A'}
+  {id:'erp',    label:'ERP & Métier',             color:'#4A6A8A'},
+  {id:'doc',    label:'Documentation & Normes',   color:'#6A4A8A'}
 ];
 
 const LEVEL_COLORS={'Expérience professionnelle':'#2D6A4F','Utilisé en projet':'#4A9A6F','Connaissances pratiques':'#C8A96E','En apprentissage':'#8A8578'};
@@ -616,7 +637,8 @@ function openModal(type,data){
     const projectImages={'apporgappr':['apporgappr-ui-1.png','apporgappr-ui-2.png','apporgappr-ui-3.png'],'quickdata':['quickdata-grafana.png','quickdata-prometheus.png'],'devlauncher':['devlauncher-dashboard.png']};
     const projKey=Object.keys(projectImages).find(k=>data.name.toLowerCase().includes(k));
     if(projKey&&projectImages[projKey]){
-      gallery=`<p class="modal-section-title">Captures</p><div class="modal-gallery">${projectImages[projKey].map(img=>`<div class="modal-gallery-item"><img src="assets/projects/${projKey}/${img}" alt="${data.name}"/></div>`).join('')}</div>`;
+      gallery=`<p class="modal-section-title">Captures</p><div class="modal-gallery">${projectImages[projKey].map((img,i)=>`<div class="modal-gallery-item" onclick="openLightbox('${projKey}',${i})"><img src="assets/projects/${projKey}/${img}" alt="${data.name}"/></div>`).join('')}</div>`;
+      window.currentGallery={project:projKey,images:projectImages[projKey]};
     }
     html=`<span class="modal-badge perso">Projet perso</span>
       <h2 class="modal-role" style="margin-top:.5rem">${data.icon} ${data.name}</h2>
@@ -626,7 +648,7 @@ function openModal(type,data){
       <p class="modal-section-title">Ce que ça fait</p>
       <ul class="modal-list">${data.missions.map(m=>`<li>${m}</li>`).join('')}</ul>
       ${gallery}
-      <p class="modal-section-title">Preuves / faits</p>
+      <p class="modal-section-title">Réalisation</p>
       <ul class="modal-list">${(data.proof||[]).map(m=>`<li>${m}</li>`).join('')}</ul>
       <p class="modal-section-title">Stack</p>
       <div class="modal-tags">${data.stack.map(s=>`<span class="modal-tag gold">${s}</span>`).join('')}</div>`;
@@ -642,6 +664,54 @@ function closeModal(e){
   document.body.style.overflow='';
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal({forceClose:true});});
+
+// ══════════════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════════════
+let currentLightboxIndex=0;
+function openLightbox(project,index){
+  currentLightboxIndex=index;
+  const images=window.currentGallery.images;
+  const img=images[index];
+  const lightboxImg=document.getElementById('lightbox-img');
+  lightboxImg.src=`assets/projects/${project}/${img}`;
+  lightboxImg.alt=`${project} screenshot ${index+1}`;
+  document.getElementById('lightbox-overlay').classList.add('open');
+  updateLightboxNav();
+}
+function closeLightbox(e){
+  if(e&&e.target.id==='lightbox-overlay'){
+    document.getElementById('lightbox-overlay').classList.remove('open');
+  }
+}
+function nextLightbox(){
+  const images=window.currentGallery.images;
+  currentLightboxIndex=(currentLightboxIndex+1)%images.length;
+  const img=images[currentLightboxIndex];
+  const lightboxImg=document.getElementById('lightbox-img');
+  lightboxImg.src=`assets/projects/${window.currentGallery.project}/${img}`;
+  updateLightboxNav();
+}
+function prevLightbox(){
+  const images=window.currentGallery.images;
+  currentLightboxIndex=(currentLightboxIndex-1+images.length)%images.length;
+  const img=images[currentLightboxIndex];
+  const lightboxImg=document.getElementById('lightbox-img');
+  lightboxImg.src=`assets/projects/${window.currentGallery.project}/${img}`;
+  updateLightboxNav();
+}
+function updateLightboxNav(){
+  const images=window.currentGallery.images;
+  document.getElementById('lightbox-prev').style.display=images.length>1?'block':'none';
+  document.getElementById('lightbox-next').style.display=images.length>1?'block':'none';
+}
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('lightbox-overlay').classList.contains('open')){
+    if(e.key==='Escape')closeLightbox({target:{id:'lightbox-overlay'}});
+    if(e.key==='ArrowLeft')prevLightbox();
+    if(e.key==='ArrowRight')nextLightbox();
+  }
+});
 
 // ══════════════════════════════════════════════
 // SCROLL REVEAL + NAV
