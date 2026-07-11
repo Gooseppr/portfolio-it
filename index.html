@@ -515,8 +515,8 @@ function renderSkills() {
     const lvlColor = LEVEL_COLORS[skill.level] || '#888';
     const lvlBg = LEVEL_BG[skill.level] || 'rgba(0,0,0,.05)';
     const ctx = (skill.contexts||[]).join(' · ');
-    const priorityNames = ['Business Central','PowerShell','SQL','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','S1000D','Docker'];
-    const featuredNames = ['Business Central','PowerShell','SQL','S1000D','XML','Freshdesk','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','Docker'];
+    const priorityNames = ['Business Central','PowerShell','Ansible','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','S1000D','Docker'];
+    const featuredNames = ['Business Central','PowerShell','Ansible','S1000D','XML','Freshdesk','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','Docker'];
     const isPriority = priorityNames.includes(skill.name);
     const isFeatured = featuredNames.includes(skill.name);
     const levelClass = skill.level === 'Expérience professionnelle' ? 'professional' : skill.level === 'En apprentissage' ? 'learning' : 'project';
