@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Grégoire Elmacin — Support Applicatif & DevOps</title>
-<meta name="description" content="Portfolio de Grégoire Elmacin — Technicien Support Applicatif & Administrateur Système DevOps. Docker, Kubernetes, CI/CD, Python, Business Central, data."/>
+<title>Grégoire Elmacin — Support Applicatif, QA & Automatisation</title>
+<meta name="description" content="Portfolio de Grégoire Elmacin : support applicatif, investigation d'incidents, QA fonctionnelle, automatisation Python et PowerShell, ERP Business Central et projets DevOps."/>
 <meta name="author" content="Grégoire Elmacin"/>
 <meta name="theme-color" content="#F5F0E8"/>
 <link rel="canonical" href="https://gooseppr.github.io/portfolio-it/"/>
 <!-- Open Graph / réseaux sociaux -->
 <meta property="og:type" content="website"/>
-<meta property="og:title" content="Grégoire Elmacin — Support Applicatif & DevOps"/>
-<meta property="og:description" content="Technicien Support Applicatif & Administrateur Système DevOps. Docker, Kubernetes, CI/CD, Python, data."/>
+<meta property="og:title" content="Grégoire Elmacin — Support Applicatif, QA & Automatisation"/>
+<meta property="og:description" content="Support applicatif, investigation d'incidents, QA fonctionnelle, automatisation Python/PowerShell, ERP Business Central et projets DevOps."/>
 <meta property="og:locale" content="fr_FR"/>
 <meta name="twitter:card" content="summary"/>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥭</text></svg>"/>
@@ -46,6 +46,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .nav-anchors a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .25s}
 .nav-anchors a:hover,.nav-anchors a.active{color:var(--ink)}
 .nav-anchors a:hover::after,.nav-anchors a.active::after{transform:scaleX(1)}
+.nav-burger{display:none;flex-direction:column;gap:4px;background:none;border:1px solid var(--border);border-radius:4px;padding:.5rem .55rem;cursor:pointer}
+.nav-burger span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .25s,opacity .2s}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+/* Focus clavier visible (accessibilité) */
+.tl-row:focus-visible,.edu-card:focus-visible,.proj-card:focus-visible,.nav-burger:focus-visible,.nav-anchors a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
 
 .wrapper{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 var(--gap)}
 
@@ -179,11 +186,9 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .legend-item{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
-/* Tooltip showing contexts on hover */
-.skill-tooltip{position:absolute;left:50%;transform:translateX(-50%) translateY(0);bottom:calc(100% + .5rem);background:var(--ink);color:var(--cream);padding:.4rem .6rem;border-radius:4px;font-family:var(--mono);font-size:.65rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s,transform .12s;z-index:220}
-.skill-tooltip::after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:-6px;border:6px solid transparent;border-top-color:var(--ink)}
-.skill-card:hover .skill-tooltip{opacity:1;transform:translateX(-50%) translateY(-6px)}
-@media(max-width:820px){.skill-tooltip{display:none}}
+/* Contexte affiché en clair sous les badges (visible desktop + mobile) */
+.skill-context{margin-top:.55rem;padding-top:.5rem;border-top:1px dashed var(--border);font-family:var(--mono);font-size:.6rem;line-height:1.5;color:var(--muted)}
+.skill-context:empty{display:none}
 
 /* CONTACT */
 #contact{background:var(--ink);color:var(--cream);text-align:center}
@@ -247,7 +252,12 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 @media(max-width:820px){
   .hero-inner{grid-template-columns:1fr;padding:7rem 0 4rem}.code-card{display:none}
   .proj-grid{grid-template-columns:1fr}.proj-card.wide{grid-column:auto}
-  .nav-anchors{display:none}
+  .nav-burger{display:flex}
+  .nav-anchors{position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(245,240,232,.98);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.4rem var(--gap) .8rem;transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s}
+  .nav-anchors.open{opacity:1;transform:none;pointer-events:auto}
+  .nav-anchors li{padding:.75rem 0;border-bottom:1px solid var(--border)}
+  .nav-anchors li:last-child{border-bottom:none}
+  .nav-anchors a{font-size:.8rem}
   /* Timeline single column */
   .tl-spine{left:16px;transform:none}
   .tl-row{grid-template-columns:32px 1fr;gap:0}
@@ -271,10 +281,13 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 
 <nav>
   <div class="nav-logo"><span>🥭</span> <span class="acc">//</span> Grégoire Elmacin</div>
-  <ul class="nav-anchors">
-    <li><a href="#parcours">Parcours</a></li>
-    <li><a href="#competences">Compétences</a></li>
-    <li><a href="#contact">Contact</a></li>
+  <button class="nav-burger" id="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="nav-anchors" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-anchors" id="nav-anchors">
+    <li><a href="#parcours" onclick="closeMenu()">Parcours</a></li>
+    <li><a href="#competences" onclick="closeMenu()">Compétences</a></li>
+    <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
   </ul>
 </nav>
 
@@ -378,9 +391,13 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12l-6 6-6-6zM2 3v10h12V3"/></svg>
         gregoire.elmacin@gmail.com
       </a>
-      <a href="https://www.linkedin.com/in/grégoiree-9a9062110" target="_blank" class="cbtn">
+      <a href="https://www.linkedin.com/in/grégoiree-9a9062110" target="_blank" rel="noopener" class="cbtn">
         <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/></svg>
         LinkedIn
+      </a>
+      <a href="https://github.com/Gooseppr" target="_blank" rel="noopener" class="cbtn">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
       </a>
     </div>
   </div>
@@ -412,7 +429,7 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 // DATA
 // ══════════════════════════════════════════════
 const XP = [
-  {type:'salarie',side:'right',period:'Juin 2023 — Août 2025',role:'Technicien Support Applicatif',company:'Delsey Paris',location:'Survilliers',context:'Groupe international · bagagerie · France, Espagne, Italie, Chine',desc:'Support N1/N2 sur Microsoft Dynamics 365 Business Central dans un contexte international. Interface entre utilisateurs métiers, équipes IT et partenaires externes.',missions:['Support fonctionnel et technique N1/N2 (France, Espagne, Italie, Chine)','Analyse d\'incidents, reproduction de bugs et diagnostic avec les développeurs','Tests fonctionnels et validation des évolutions (jobs batch : commandes, stock, tracking)','Supervision des flux FTP/SFTP, EDI, échanges inter-applicatifs','Gestion des accès, configurations et paramétrage applicatif','Débogage de plugins et analyse de comportements applicatifs','Automatisation de tâches et contrôles via scripting PowerShell','Coordination entre équipes métiers, techniques et partenaires externes','Formation et accompagnement utilisateurs'],tags:['Business Central','PowerShell','EDI/FTP','ERP','Tests fonctionnels','Support N1/N2']},
+  {type:'salarie',side:'right',period:'Juin 2023 — Août 2025',role:'Technicien Support Applicatif',company:'Delsey Paris',location:'Survilliers',context:'Groupe international · bagagerie · France, Espagne, Italie, Chine',desc:'Support N1/N2 sur Microsoft Dynamics 365 Business Central pour ~100 utilisateurs répartis sur 4 pays. Interface entre utilisateurs métiers, équipes IT et partenaires externes.',missions:['Support fonctionnel et technique N1/N2 pour ~100 utilisateurs (France, Espagne, Italie, Chine)','Analyse d\'incidents, reproduction de bugs et diagnostic avec les développeurs','Tests fonctionnels, recette et TNR des évolutions (jobs batch : commandes, stock, tracking)','Interventions sur les serveurs applicatifs et bases SQL Server','Supervision des flux FTP/SFTP, EDI, échanges inter-applicatifs','Réplication de référentiels (société tampon → sociétés opérationnelles FR/ES/IT/CN) et transferts interco avec ajustements de stock','Interfaçage avec l\'outil de gestion des pièces détachées (GStock)','Gestion des accès, configurations et paramétrage applicatif','Débogage de plugins et analyse de comportements applicatifs','Automatisation PowerShell : archivage, reporting depuis les logs, génération de données de test','Coordination entre équipes métiers, techniques et partenaires externes','Collaboration avec les équipes magasin (hors périmètre Business Central) sur l\'outil de caisse Cegid : stocks, remontées de caisse, communication Cegid ↔ ERP','Formation et accompagnement utilisateurs'],tags:['Business Central','PowerShell','EDI/FTP','ERP','Tests fonctionnels','Support N1/N2']},
   {type:'salarie',side:'left',period:'Fév 2023 — Juin 2023',role:'Responsable Support & SAV',company:'Orosound',location:'Paris',context:'Fabricant français de casques audio professionnels',desc:'Support technique complet sur casque audio professionnel et son logiciel (Windows/macOS). Ticketing, reproduction de bugs, gestion SAV logistique.',missions:['Ticketing & incidents B2B/B2C via Freshdesk','Tests fonctionnels et de compatibilité (Teams, Zoom, softphones)','Analyse de logs et diagnostic hardware vs software','Pilotage SAV & logistique retours produits','Amélioration de la documentation technique'],tags:['Freshdesk','Tests fonctionnels','SAV','Documentation','Windows/macOS']},
   {type:'salarie',side:'right',period:'Oct 2022 — Fév 2023',role:'Technicien Support Logiciel',company:'CPI Software',location:'Croissy-sur-Seine',context:'Éditeur de logiciels financiers et solutions bancaires',desc:'Support N1 sur solution de gestion de trésorerie Cubicus. Analyse de logs, requêtes SQL, sécurisation des échanges bancaires.',missions:['Support client & résolution d\'incidents à distance','Diagnostic via analyse de logs et requêtes SQL','Paramétrage modules paiements/trésorerie','Gestion certificats et clés d\'authentification bancaires','Formation clients, rédaction documentation'],tags:['SQL','Analyse logs','Finance','Cubicus','Certificats']},
   {type:'salarie',side:'left',period:'Sept 2020 — Sept 2022',role:'Rédacteur Technique',company:'SNCF Voyageurs',location:'Saint-Denis',context:'Opérateur ferroviaire national · Technicentre du Landy · Alternance',desc:'Rédaction de modules de maintenance XML S1000D, conception de guides utilisateurs, automatisation VBA.',missions:['Rédaction modules maintenance XML S1000D','Conception guides utilisateurs & supports de formation','Élaboration documents de contrôle (NPAI, DA, BASL)','Automatisation Excel via VBA','Structuration documentaire & conformité référentielle'],tags:['XML/S1000D','VBA','MadCap Flare','Documentation','Ferroviaire']},
@@ -424,7 +441,7 @@ const XP = [
 ];
 
 const FORMATIONS = [
-  {featured:true,year:'Oct 2025 — Jan 2026',title:'Administrateur Système DevOps',school:'La Capsule · Paris · Titre RNCP niv. 6',desc:'Formation intensive orientée pratique. Environnements Linux, conteneurisation, orchestration, CI/CD, monitoring et sécurité infra.',missions:['Administration système Linux','Conteneurisation avec Docker et Docker Compose','Orchestration Kubernetes','Pipelines CI/CD avec GitHub Actions et GitLab','Infrastructure as Code avec Ansible et Terraform','Monitoring avec Prometheus, Loki, Grafana','Sécurité avec BunkerWeb et CrowdSec','Reverse proxy Nginx et Traefik'],skills:['Linux','Docker','Kubernetes','CI/CD','Ansible','Terraform','Vagrant','AWS','Prometheus','Loki','Grafana','Nginx','Traefik','GitHub Actions','BunkerWeb','CrowdSec','DevContainers','Shell scripting']},
+  {featured:true,year:'Oct 2025 — Juin 2026',title:'Administrateur Système DevOps',school:'La Capsule · Paris · Titre RNCP niv. 6',desc:'Formation intensive orientée pratique. Environnements Linux, conteneurisation, orchestration, CI/CD, monitoring et sécurité infra.',missions:['Administration système Linux','Conteneurisation avec Docker et Docker Compose','Orchestration Kubernetes','Pipelines CI/CD avec GitHub Actions et GitLab','Infrastructure as Code avec Ansible et Terraform','Monitoring avec Prometheus, Loki, Grafana','Sécurité avec BunkerWeb et CrowdSec','Reverse proxy Nginx et Traefik'],skills:['Linux','Docker','Kubernetes','CI/CD','Ansible','Terraform','Vagrant','AWS','Prometheus','Loki','Grafana','Nginx','Traefik','GitHub Actions','BunkerWeb','CrowdSec','DevContainers','Shell scripting']},
   {featured:true,year:'Oct 2024 — Jan 2025',title:'Data Analyst',school:'DataBird',desc:'Formation data axée sur la modélisation, le stockage et l\'administration de bases de données. Du SQL avancé à la visualisation.',missions:['SQL avancé et optimisation des requêtes','Modélisation de données (Merise, MLD, MPD)','Administration PostgreSQL','Python pour la data (Pandas, NumPy)','Visualisation avec Power BI','Introduction à Dataverse','Analyses exploratoires et dashboards'],skills:['SQL avancé','PostgreSQL','Modélisation de données','Pandas','Python data','Power BI','Dataverse','Visualisation']},
   {featured:false,year:'2020 — 2021',title:'Licence Pro Communication & Rédaction Technique',school:'Université de Paris · Alternance SNCF',desc:'Licence professionnelle axée sur la rédaction technique structurée, les outils spécialisés et les normes documentaires industrielles.',missions:['Rédaction et structuration de documents techniques','Norme S1000D pour la documentation de maintenance','Outils MadCap Flare et Adobe FrameMaker','Langage XPath pour la manipulation XML','Projet de fin d\'études en alternance à la SNCF'],skills:['XML/S1000D','MadCap Flare','FrameMaker','Rédaction technique','XPath','Structuration documentaire']},
   {featured:false,year:'2014 — 2016',title:'BTS Assistance Technique d\'Ingénieur',school:'Lycée Jacquard · Paris',desc:'BTS orienté industrie et conception technique, avec des bases en modélisation 3D, gestion de projet et analyse technique.',missions:['Modélisation 3D avec SolidWorks et CATIA','Analyse technique et de systèmes','Gestion de projet et documentation industrielle'],skills:['SolidWorks','CATIA','Analyse technique','Gestion de projet']},
@@ -432,12 +449,12 @@ const FORMATIONS = [
 ];
 
 const PROJETS_PERSO = [
-  {wide:true,icon:'☁️',type:'Cloud · DevOps',name:'QuickData / NocoDB sur AWS',desc:'Infrastructure automatisée autour d’un environnement cloud orienté données et automatisation, avec provisionning, conteneurs, routage, bases et observabilité. Un projet très représentatif de mon travail DevOps.',stack:['AWS','Terraform','Ansible','Docker Swarm','Traefik','PostgreSQL','S3','Prometheus','Grafana'],missions:['Provisioning automatisé sur AWS','Déploiement conteneurisé et routage','Base de données PostgreSQL et sauvegardes S3','Observabilité avec Prometheus/Grafana'],status:'Déployé sur AWS',proof:['Infrastructure as Code','Déploiement automatisé','Sauvegardes et observabilité','Environnement reproductible']},
-  {wide:true,icon:'🗂️',type:'Desktop App · QA',name:'AppOrgappr',desc:'Application desktop PySide6 orientée gestion de fichiers, avec tri, déplacement, suppression et archivage automatisés ; les transferts FTP/SFTP sont intégrés comme option de déplacement.',stack:['Python','PySide6','FastAPI','FTP/SFTP','PyTest','Windows'],missions:['Gestion de fichiers locale : tri, déplacement, suppression et archivage','Règles de traitement paramétrables selon les dossiers et types de fichiers','Transferts FTP/SFTP en option au sein du déplacement','Protection contre les suppressions et écrasements'],status:'Version utilisable',proof:['Règles de tri et archivage intégrées','Protection de sécurité intégrée','Planificateur Windows','78 tests automatisés']},
-  {wide:false,icon:'📄',type:'Documentation technique',name:'S1000D / XML pipeline',desc:'Chaîne de production documentaire autour des standards XML/S1000D, avec validation XSD, règles BREX/Schematron, génération HTML/PDF et API de consultation.',stack:['XML','XSD','Schematron','FastAPI','Python','HTML/PDF'],missions:['Validation des structures XML','Règles de conformité documentaire','Génération de documents','API de consultation et statuts documentaires'],status:'Version utilisable',proof:['Validation XSD et règles BREX','Sorties HTML/PDF','API documentaire','Usage orienté métier']},
-  {wide:false,icon:'🧰',type:'DevOps Tooling',name:'devlauncher',desc:'Panneau de pilotage local pour lancer et superviser des commandes de développement avec agent local, Docker et environnement reproductible.',stack:['Docker','Docker Compose','Python','Flask','SQLite'],missions:['Orchestration multi-services','Agent local de supervision','Gestion de projets et pipelines','Import/export d’outils'],status:'Prototype fonctionnel',proof:['Architecture locale claire','Orchestration Docker','Agent dédié','Documentation d’usage']},
-  {wide:false,icon:'📚',type:'Contenu pédagogique',name:'Coursite',desc:'Plateforme de publication de contenus pédagogiques en mode statique, avec structure claire, templates et génération automatisée.',stack:['Jekyll','Markdown','Python','GitHub Pages'],missions:['Structuration de cours et modules','Publication statique','Mise en forme Markdown','Navigation et SEO du site'],status:'Version utilisable',proof:['Site publié et structuré','Templates reproductibles','Contenus pédagogiques organisés']},
-  {wide:false,icon:'🎵',type:'Prototype web',name:'Music App',desc:'Prototype web autour de l’expérience musicale, mêlant interface utilisateur, logique d’authentification et intégration de services tiers.',stack:['Node.js','Express','React','MySQL'],missions:['Interface web musicale','Authentification et sessions','Intégration d’API tierces','Visualisation de contenus'],status:'Prototype fonctionnel',proof:['Application web complète','Routes et back-end organisés','Versions itérées']}
+  {wide:true,icon:'☁️',category:'Projet de formation',type:'Cloud · DevOps',name:'QuickData / NocoDB sur AWS',desc:'Infrastructure automatisée autour d’un environnement cloud orienté données et automatisation, avec provisionning, conteneurs, routage, bases et observabilité. Un projet très représentatif de mon travail DevOps.',stack:['AWS','Terraform','Ansible','Docker Swarm','Traefik','PostgreSQL','S3','Prometheus','Grafana'],missions:['Provisioning automatisé sur AWS','Déploiement conteneurisé et routage','Base de données PostgreSQL et sauvegardes S3','Observabilité avec Prometheus/Grafana'],status:'Infrastructure déployée et validée sur AWS',proof:['Ressources AWS provisionnées avec Terraform','Configuration des machines par rôles Ansible','Orchestration NocoDB/PostgreSQL avec Docker Swarm','Sauvegardes PostgreSQL automatisées vers S3','Supervision Prometheus / Grafana / Loki','Pipeline GitLab CI/CD']},
+  {wide:true,icon:'🗂️',category:'Projet personnel',type:'Desktop App · QA',name:'AppOrgappr',desc:'Application desktop PySide6 orientée gestion de fichiers, avec tri, déplacement, suppression et archivage automatisés ; les transferts FTP/SFTP sont intégrés comme option de déplacement.',stack:['Python','PySide6','FastAPI','FTP/SFTP','PyTest','Windows'],missions:['Gestion de fichiers locale : tri, déplacement, suppression et archivage','Règles de traitement paramétrables selon les dossiers et types de fichiers','Transferts FTP/SFTP en option au sein du déplacement','Protection contre les suppressions et écrasements'],status:'Version utilisable',proof:['Règles de tri et archivage intégrées','Protection de sécurité intégrée','Planificateur Windows','78 tests automatisés']},
+  {wide:false,icon:'📄',category:'Projet personnel',type:'Documentation technique',name:'S1000D / XML pipeline',desc:'Chaîne de production documentaire autour des standards XML/S1000D, avec validation XSD, règles BREX/Schematron, génération HTML/PDF et API de consultation.',stack:['XML','XSD','Schematron','FastAPI','Python','HTML/PDF'],missions:['Validation des structures XML','Règles de conformité documentaire','Génération de documents','API de consultation et statuts documentaires'],status:'Version utilisable',proof:['Validation XSD et règles BREX','Sorties HTML/PDF','API documentaire','Usage orienté métier']},
+  {wide:false,icon:'🧰',category:'Projet personnel',type:'DevOps Tooling',name:'devlauncher',desc:'Panneau de pilotage local pour lancer et superviser des commandes de développement avec agent local, Docker et environnement reproductible.',stack:['Docker','Docker Compose','Python','Flask','SQLite'],missions:['Orchestration multi-services','Agent local de supervision','Gestion de projets et pipelines','Import/export d’outils'],status:'Prototype fonctionnel',proof:['Architecture locale claire','Orchestration Docker','Agent dédié','Documentation d’usage']},
+  {wide:false,icon:'📚',category:'Outil pédagogique',type:'Contenu pédagogique',name:'Coursite',desc:'Plateforme de publication de contenus pédagogiques en mode statique, avec structure claire, templates et génération automatisée.',stack:['Jekyll','Markdown','Python','GitHub Pages'],missions:['Structuration de cours et modules','Publication statique','Mise en forme Markdown','Navigation et SEO du site'],status:'Version utilisable',proof:['Site publié et structuré','Templates reproductibles','Contenus pédagogiques organisés']},
+  {wide:false,icon:'🎵',category:'Prototype',type:'Prototype web',name:'Music App',desc:'Prototype web autour de l’expérience musicale, mêlant interface utilisateur, logique d’authentification et intégration de services tiers.',stack:['Node.js','Express','React','MySQL'],missions:['Interface web musicale','Authentification et sessions','Intégration d’API tierces','Visualisation de contenus'],status:'Prototype fonctionnel',proof:['Application web complète','Routes et back-end organisés','Versions itérées']}
 ];
 
 const SKILL_DATA = [
@@ -455,7 +472,7 @@ const SKILL_DATA = [
   {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData monitoring']},
   {name:'Grafana',family:'devops',domain:'Monitoring',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData dashboards']},
   {name:'GitLab CI/CD',family:'devops',domain:'CI/CD',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData']},
-  {name:'Git et GitLab',family:'devops',domain:'VCS',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData','CPI Software','Delsey']},
+  {name:'Git et GitLab',family:'devops',domain:'VCS',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData','Projets perso','Découvert chez Delsey']},
   {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData','Project DBs']},
   {name:'FastAPI',family:'dev',domain:'API',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['AppOrgappr API','S1000D API']},
   {name:'PyTest',family:'dev',domain:'Tests',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['AppOrgappr tests','CI pipelines']},
@@ -466,7 +483,7 @@ const SKILL_DATA = [
   {name:'Tests fonctionnels',family:'itsm',domain:'QA',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Delsey','Orosound']},
   {name:'Analyse logs',family:'itsm',domain:'Diagnostic',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Support N1/N2','Delsey','Orosound','Production troubleshooting']},
   {name:'Flux inter-applicatifs (FTP/SFTP/EDI)',family:'itsm',domain:'Intégration',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Delsey (EDI/FTP)','Supervision de flux','Batch processing']},
-  {name:'Power Platform',family:'erp',domain:'Power Platform',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','En apprentissage'],contexts:['Découvert chez Delsey','Apprentissage autodidacte']},
+  {name:'Power Platform',family:'erp',domain:'Power Platform',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','En apprentissage'],contexts:['Delsey (création d\'apps PowerApps)','Apprentissage autodidacte']},
   {name:'Power BI',family:'erp',domain:'Power Platform',level:'Utilisé en formation',tags:['Utilisé en formation'],contexts:['DataBird']},
   {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'Utilisé en formation',tags:['Utilisé en formation'],contexts:['La Capsule (formation)']},
   {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'Utilisé en formation',tags:['Utilisé en formation'],contexts:['La Capsule (formation)']}
@@ -518,8 +535,8 @@ function renderSkills() {
     const tags = Array.isArray(skill.tags) && skill.tags.length ? skill.tags : [skill.level];
     const levelClass = tags.includes('Utilisé en entreprise') ? 'professional' : tags.includes('En apprentissage') ? 'learning' : 'project';
     const ctx = (skill.contexts||[]).join(' · ');
-    const priorityNames = ['Business Central','PowerShell','Ansible','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','S1000D','Docker'];
-    const featuredNames = ['Business Central','PowerShell','Ansible','S1000D','XML','Freshdesk','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','Docker'];
+    const priorityNames = ['Business Central','PowerShell','SQL','Tests fonctionnels','Analyse logs','Flux inter-applicatifs (FTP/SFTP/EDI)','Python','Docker'];
+    const featuredNames = ['S1000D','XML','Freshdesk','Ansible','Terraform','PyTest','FastAPI','GitLab CI/CD'];
     const isPriority = priorityNames.includes(skill.name);
     const isFeatured = featuredNames.includes(skill.name);
     const cardClass = `skill-card ${levelClass}${isPriority ? ' priority' : ''}${isFeatured && !isPriority ? ' featured' : ''}`;
@@ -531,9 +548,10 @@ function renderSkills() {
       </div>
       <div class="skill-tags">${tags.map(tag=>{
         const tagKey = tag === 'Utilisé en entreprise' ? 'entreprise' : tag === 'Utilisé en formation' ? 'formation' : tag === 'Utilisé dans mes projets' ? 'projets' : 'apprentissage';
-        return `<span class="skill-tag ${tagKey}">${tag}</span>`;
+        const short = tag === 'Utilisé en entreprise' ? 'Entreprise' : tag === 'Utilisé en formation' ? 'Formation' : tag === 'Utilisé dans mes projets' ? 'Projets' : 'Apprentissage';
+        return `<span class="skill-tag ${tagKey}" title="${tag}">${short}</span>`;
       }).join('')}</div>
-      <div class="skill-tooltip">${ctx}</div>
+      <div class="skill-context">${ctx}</div>
     </div>`;
   }).join('');
 
@@ -557,6 +575,31 @@ function clearFilters(e) {
   activeFilters.clear();
   renderSkills();
 }
+
+// ══════════════════════════════════════════════
+// NAV MOBILE (menu burger)
+// ══════════════════════════════════════════════
+function toggleMenu(){
+  const anchors=document.getElementById('nav-anchors');
+  const burger=document.getElementById('nav-burger');
+  const open=anchors.classList.toggle('open');
+  burger.setAttribute('aria-expanded',open?'true':'false');
+  burger.setAttribute('aria-label',open?'Fermer le menu':'Ouvrir le menu');
+}
+function closeMenu(){
+  const anchors=document.getElementById('nav-anchors');
+  if(!anchors.classList.contains('open'))return;
+  anchors.classList.remove('open');
+  const burger=document.getElementById('nav-burger');
+  burger.setAttribute('aria-expanded','false');
+  burger.setAttribute('aria-label','Ouvrir le menu');
+}
+// Fermer le menu si clic hors nav ou touche Échap
+document.addEventListener('click',e=>{if(!e.target.closest('nav'))closeMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+
+// Activation clavier des cartes cliquables (Enter / Espace)
+function cardKey(e,el){if(e.key==='Enter'||e.key===' '){e.preventDefault();el.click();}}
 
 // ══════════════════════════════════════════════
 // TABS (Expériences / Formations / Projets)
@@ -586,6 +629,10 @@ function renderTimeline(){
     const div=document.createElement('div');
     div.className='tl-row reveal'+(collapsed?' collapsed':'');
     div.onclick=()=>openModal('xp',item);
+    div.setAttribute('role','button');
+    div.tabIndex=0;
+    div.setAttribute('aria-label',`${item.role} — ${item.company}, voir le détail`);
+    div.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal('xp',item);}};
     const card=`<span class="tl-badge ${item.type}">${item.type==='freelance'?'Freelance':'Salarié'}</span>
       <p class="tl-period">${item.period}</p>
       <h3 class="tl-role">${item.role}</h3>
@@ -620,7 +667,7 @@ window.addEventListener('resize',()=>{
 // ══════════════════════════════════════════════
 function renderFormations(){
   document.getElementById('edu-grid').innerHTML=FORMATIONS.map((f,i)=>`
-    <div class="edu-card ${f.featured?'featured':''} reveal" onclick="openModal('formation',FORMATIONS[${i}])">
+    <div class="edu-card ${f.featured?'featured':''} reveal" role="button" tabindex="0" aria-label="${f.title.replace(/"/g,'&quot;')} — voir le détail" onclick="openModal('formation',FORMATIONS[${i}])" onkeydown="cardKey(event,this)">
       <p class="edu-year">${f.year}</p>
       <h3 class="edu-title">${f.title}</h3>
       <p class="edu-school">${f.school}</p>
@@ -634,7 +681,7 @@ function renderFormations(){
 // ══════════════════════════════════════════════
 function renderProjets(){
   document.getElementById('proj-perso-grid').innerHTML=PROJETS_PERSO.map((p,i)=>`
-    <div class="proj-card${p.wide?' wide':''} reveal" onclick="openModal('projet',PROJETS_PERSO[${i}])">
+    <div class="proj-card${p.wide?' wide':''} reveal" role="button" tabindex="0" aria-label="${p.name.replace(/"/g,'&quot;')} — voir le détail" onclick="openModal('projet',PROJETS_PERSO[${i}])" onkeydown="cardKey(event,this)">
       <p class="proj-type">${p.icon} ${p.type}</p>
       <h3 class="proj-name">${p.name}</h3>
       <p class="proj-desc">${p.desc}</p>
@@ -677,7 +724,7 @@ function openModal(type,data){
       gallery=`<p class="modal-section-title">Captures</p><div class="modal-gallery">${projectImages[projKey].map((img,i)=>`<div class="modal-gallery-item" onclick="openLightbox('${projKey}',${i})"><img src="assets/projects/${projKey}/${img}" alt="${data.name}"/></div>`).join('')}</div>`;
       window.currentGallery={project:projKey,images:projectImages[projKey]};
     }
-    html=`<span class="modal-badge perso">Projet perso</span>
+    html=`<span class="modal-badge ${data.category==='Projet de formation'?'formation':'perso'}">${data.category||'Projet perso'}</span>
       <h2 class="modal-role" style="margin-top:.5rem">${data.icon} ${data.name}</h2>
       <p class="modal-co" style="margin-bottom:.3rem">${data.type}</p>
       <p class="modal-co">Statut : <strong style="color:var(--ink)">${data.status}</strong></p>
