@@ -2,6 +2,10 @@
 portfolio_full_summary.md
 portfolio_projects_metadata.json
 
+# Outil interne d'extraction de fiches projet (local only)
+PROMPT_EXTRACTION_PROJET.md
+_fiche-portfolio.md
+
 # Documents personnels (CV, profil) — ne pas publier sur un repo public
 *.pdf
 

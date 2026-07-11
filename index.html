@@ -136,6 +136,7 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .proj-card.pro .proj-type{color:var(--jade)}
 .proj-name{font-family:var(--serif);font-size:1.15rem;line-height:1.2}
 .proj-desc{font-size:.86rem;color:var(--muted);flex:1}
+.proj-status{font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;text-transform:uppercase;color:var(--jade);border:1px solid rgba(45,106,79,.2);background:rgba(45,106,79,.05);padding:.3rem .45rem;border-radius:2px;align-self:flex-start}
 .proj-stack{display:flex;flex-wrap:wrap;gap:.3rem}
 .ppill{font-family:var(--mono);font-size:.57rem;letter-spacing:.07em;text-transform:uppercase;padding:.14rem .44rem;border:1px solid rgba(200,169,110,.25);border-radius:2px;color:var(--gold)}
 .proj-card.pro .ppill{border-color:rgba(45,106,79,.2);color:var(--jade)}
@@ -244,14 +245,14 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 <div class="wrapper">
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="hero-eyebrow">// Support · DevOps · Créateur</p>
+      <p class="hero-eyebrow">// Support applicatif · QA technique · Automatisation</p>
       <h1 class="hero-name">Grégoire<br/><em>Elmacin</em></h1>
-      <p class="hero-role">Technicien support applicatif sur environnements métiers complexes (ERP, flux de données, systèmes interconnectés), à la croisée du support avancé, de l'industrialisation des applications métier et des pratiques DevOps. J'automatise les process, je connecte les systèmes et je fiabilise les déploiements.</p>
+      <p class="hero-role">Technicien support applicatif et QA technique sur des environnements métiers complexes, avec une forte appétence pour l’automatisation, l’industrialisation des processus et la fiabilisation des flux inter-applicatifs. Je relie support, qualité logicielle et pratiques DevOps pour rendre les systèmes plus robustes.</p>
       <div class="hero-tags">
-        <span class="tag hi">DevOps</span><span class="tag hi">Data</span>
-        <span class="tag gr">Business Central</span><span class="tag gr">CI/CD</span>
-        <span class="tag">Docker</span><span class="tag">Python</span>
-        <span class="tag">Power Platform</span><span class="tag">Sevran 🥭</span>
+        <span class="tag hi">ERP</span><span class="tag hi">Flux inter-applicatifs</span>
+        <span class="tag gr">Python</span><span class="tag gr">PowerShell</span>
+        <span class="tag">Business Central</span><span class="tag">Docker</span>
+        <span class="tag">DevOps</span><span class="tag">Sevran 🥭</span>
         <span class="tag">🇫🇷 Natif</span><span class="tag">🇬🇧 Anglais B2</span>
       </div>
       <button class="hero-cta" onclick="document.getElementById('parcours').scrollIntoView({behavior:'smooth'})">
@@ -263,10 +264,10 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
       <div><span class="ln">01</span><span class="cm">// qui suis-je ?</span></div>
       <div><span class="ln">02</span></div>
       <div><span class="ln">03</span><span class="kw">const</span> greg = {</div>
-      <div><span class="ln">04</span>&nbsp;&nbsp;role: <span class="str">"Support & DevOps"</span>,</div>
+      <div><span class="ln">04</span>&nbsp;&nbsp;role: <span class="str">"Support · QA · Automatisation"</span>,</div>
       <div><span class="ln">05</span>&nbsp;&nbsp;base: <span class="str">"Paris / Sevran"</span>,</div>
-      <div><span class="ln">06</span>&nbsp;&nbsp;stack: [<span class="str">"Docker"</span>, <span class="str">"K8s"</span>,</div>
-      <div><span class="ln">07</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Python"</span>, <span class="str">"Ansible"</span>],</div>
+      <div><span class="ln">06</span>&nbsp;&nbsp;stack: [<span class="str">"Python"</span>, <span class="str">"PowerShell"</span>,</div>
+      <div><span class="ln">07</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Docker"</span>, <span class="str">"Business Central"</span>],</div>
       <div><span class="ln">08</span>&nbsp;&nbsp;dispo: <span class="kw">true</span>,</div>
       <div><span class="ln">09</span>&nbsp;&nbsp;vibe: <span class="str">"🥭 👾 ⚽ 🎌"</span></div>
       <div><span class="ln">10</span>}</div>
@@ -385,76 +386,39 @@ const FORMATIONS = [
 ];
 
 const PROJETS_PERSO = [
-  {wide:true,icon:'⭐',type:'Projet phare · API & Orchestration',name:'AppOrgappr',desc:'Suite d\'applications et d\'APIs pour l\'organisation et l\'orchestration de tâches métier, itérée en 3 versions progressives. Architecture API server, tests PyTest, logique métier structurée.',stack:['Python','PyTest','API REST','JSON'],missions:['Architecture en API server','Tests unitaires avec PyTest','Logique métier modulaire','3 versions progressives (v1, v2, v3bis)'],status:'60% — En développement actif'},
-  {wide:true,icon:'🔧',type:'En cours · DevOps Tooling',name:'devlauncher',desc:'Boîte à outils Docker pour le développement local rapide — app, agent, données et tests orchestrés en un seul Compose. L\'objectif : un environnement reproductible en une commande.',stack:['Docker','Docker Compose','Python','Web'],missions:['Orchestration multi-services via Docker Compose','Environnement reproductible one-command','Agent intégré pour automatisation','Stack de tests incluse'],status:'80% — En cours de peaufinage'},
-  {wide:false,icon:'📊',type:'Data Pipeline · 85%',name:'NBA Pipeline',desc:'Pipeline de données et analyses autour des stats NBA. Ingestion, transformation, tests — pratiquer la data sur un sujet passion.',stack:['Python','Pandas','Tests'],missions:['Ingestion de données NBA via API','Transformation et nettoyage Pandas','Tests de validité des données'],status:'85%'},
-  {wide:false,icon:'📄',type:'XML / S1000D · 90%',name:'ppr-xml',desc:'Production documentaire XML/S1000D avec schémas, API de génération et output structuré. La continuité de mon travail SNCF, poussée côté code.',stack:['XML','S1000D','API','Python'],missions:['Schémas XML S1000D','API de génération documentaire','Output structuré et conforme'],status:'90%'},
-  {wide:false,icon:'⚙️',type:'CI/CD · Infra · 70%',name:'DevOps Lab',desc:'Artefacts CI/CD, environnements Vagrant et scripts d\'infra reproductible. Lab pratique post-La Capsule.',stack:['Vagrant','Shell','CI/CD','GitHub Actions'],missions:['Environnements Vagrant reproductibles','Pipelines GitHub Actions','Scripts d\'infra as code'],status:'70%'},
-  {wide:false,icon:'📚',type:'Perso · 100%',name:'Coursite',desc:'Bibliothèque de cours partagée entre amis. Site statique généré automatiquement depuis du Markdown, avec scripts Python et pipeline n8n.',stack:['Python','Markdown','n8n','Static site'],missions:['Génération automatique via pipeline n8n','Scripts Python de traitement Markdown','Déploiement site statique','Usage privé entre amis'],status:'100% — En production'},
-  {wide:false,icon:'🛠️',type:'Auto-entrepreneur · En déploiement',name:'EnvOrosound',desc:'Cockpit SAV pour mon activité auto-entrepreneur. Agrège tickets Freshdesk, expéditions UPS/DHL et doc Notion en un dashboard Streamlit.',stack:['Python','Streamlit','SQLite','Freshdesk API'],missions:['Dashboard Streamlit centralisé','Intégration Freshdesk, Gmail, UPS/DHL','Base SQLite locale','Proposition d\'action par ticket'],status:'80%'},
-  {wide:false,icon:'🎵',type:'Web App · 75%',name:'Music App',desc:'Application web musicale en Node.js, itérée jusqu\'à v5 Lite. Routes, interface publique, gestion de contenu côté serveur.',stack:['JavaScript','Node.js','Web'],missions:['Application Node.js full-stack','5 versions successives','Gestion de contenu musical'],status:'75%'},
-  {wide:false,icon:'🎮',type:'Fun · Apprentissage',name:'PixelArt & Cartographie',desc:'Mini-projets d\'exploration : éditeur pixel art Python + outil de cartographie interactive HTML. Le genre de trucs qu\'on fait parce qu\'on aime.',stack:['Python','HTML/CSS'],missions:['Éditeur pixel art en Python','Cartographie interactive HTML/CSS'],status:'70%'}
+  {wide:true,icon:'☁️',type:'Cloud · DevOps',name:'QuickData / NocoDB sur AWS',desc:'Infrastructure automatisée autour d’un environnement cloud orienté données et automatisation, avec provisionning, conteneurs, routage, bases et observabilité. Un projet très représentatif de mon travail DevOps.',stack:['AWS','Terraform','Ansible','Docker Swarm','Traefik','PostgreSQL','S3','Prometheus','Grafana'],missions:['Provisioning automatisé sur AWS','Déploiement conteneurisé et routage','Base de données PostgreSQL et sauvegardes S3','Observabilité avec Prometheus/Grafana'],status:'Déployé sur AWS',proof:['Infrastructure as Code','Déploiement automatisé','Sauvegardes et observabilité','Environnement reproductible']},
+  {wide:true,icon:'🗂️',type:'Desktop App · QA',name:'AppOrgappr',desc:'Application desktop PySide6 orientée automatisation de fichiers, avec API locale, protections contre les suppressions dangereuses, planification Windows et tests automatisés.',stack:['Python','PySide6','FastAPI','FTP/SFTP','PyTest','Windows'],missions:['Application desktop locale','API locale et logique métier','Transferts FTP/SFTP','Protection contre les suppressions et écrasements'],status:'Version utilisable',proof:['API locale fonctionnelle','Protection de sécurité intégrée','Planificateur Windows','78 tests automatisés']},
+  {wide:false,icon:'📄',type:'Documentation technique',name:'S1000D / XML pipeline',desc:'Chaîne de production documentaire autour des standards XML/S1000D, avec validation XSD, règles BREX/Schematron, génération HTML/PDF et API de consultation.',stack:['XML','XSD','Schematron','FastAPI','Python','HTML/PDF'],missions:['Validation des structures XML','Règles de conformité documentaire','Génération de documents','API de consultation et statuts documentaires'],status:'Version utilisable',proof:['Validation XSD et règles BREX','Sorties HTML/PDF','API documentaire','Usage orienté métier']},
+  {wide:false,icon:'🧰',type:'DevOps Tooling',name:'devlauncher',desc:'Panneau de pilotage local pour lancer et superviser des commandes de développement avec agent local, Docker et environnement reproductible.',stack:['Docker','Docker Compose','Python','Flask','SQLite'],missions:['Orchestration multi-services','Agent local de supervision','Gestion de projets et pipelines','Import/export d’outils'],status:'Prototype fonctionnel',proof:['Architecture locale claire','Orchestration Docker','Agent dédié','Documentation d’usage']},
+  {wide:false,icon:'📚',type:'Contenu pédagogique',name:'Coursite',desc:'Plateforme de publication de contenus pédagogiques en mode statique, avec structure claire, templates et génération automatisée.',stack:['Jekyll','Markdown','Python','GitHub Pages'],missions:['Structuration de cours et modules','Publication statique','Mise en forme Markdown','Navigation et SEO du site'],status:'Version utilisable',proof:['Site publié et structuré','Templates reproductibles','Contenus pédagogiques organisés']},
+  {wide:false,icon:'🎵',type:'Prototype web',name:'Music App',desc:'Prototype web autour de l’expérience musicale, mêlant interface utilisateur, logique d’authentification et intégration de services tiers.',stack:['Node.js','Express','React','MySQL'],missions:['Interface web musicale','Authentification et sessions','Intégration d’API tierces','Visualisation de contenus'],status:'Prototype fonctionnel',proof:['Application web complète','Routes et back-end organisés','Versions itérées']}
 ];
 
 const SKILL_DATA = [
-  // DevOps & Cloud
-  {name:'Docker',family:'devops',domain:'Conteneurisation',level:'Avancé'},
-  {name:'Docker Compose',family:'devops',domain:'Conteneurisation',level:'Avancé'},
-  {name:'Linux',family:'devops',domain:'Système',level:'Avancé'},
-  {name:'CI/CD',family:'devops',domain:'CI/CD',level:'Avancé'},
-  {name:'Git',family:'devops',domain:'Versioning',level:'Avancé'},
-  {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'Intermédiaire'},
-  {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'Intermédiaire'},
-  {name:'Docker Swarm',family:'devops',domain:'Orchestration',level:'Intermédiaire'},
-  {name:'Ansible',family:'devops',domain:'IaC',level:'Intermédiaire'},
-  {name:'GitLab',family:'devops',domain:'CI/CD',level:'Intermédiaire'},
-  {name:'Nginx',family:'devops',domain:'Infra',level:'Intermédiaire'},
-  {name:'Traefik',family:'devops',domain:'Infra',level:'Intermédiaire'},
-  {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Intermédiaire'},
-  {name:'Loki',family:'devops',domain:'Monitoring',level:'Intermédiaire'},
-  {name:'Grafana',family:'devops',domain:'Monitoring',level:'Intermédiaire'},
-  {name:'AWS',family:'devops',domain:'Cloud',level:'Intermédiaire'},
-  {name:'Vagrant',family:'devops',domain:'IaC',level:'Intermédiaire'},
-  {name:'Terraform',family:'devops',domain:'IaC',level:'Débutant'},
-  {name:'DevContainers',family:'devops',domain:'Conteneurisation',level:'Débutant'},
-  {name:'BunkerWeb',family:'devops',domain:'Sécurité',level:'Débutant'},
-  {name:'CrowdSec',family:'devops',domain:'Sécurité',level:'Débutant'},
-  {name:'Vercel',family:'devops',domain:'Cloud',level:'Débutant'},
-  // Développement Langage & Data
-  {name:'Python',family:'dev',domain:'Scripting',level:'Avancé'},
-  {name:'SQL',family:'dev',domain:'Data',level:'Avancé'},
-  {name:'Bash',family:'dev',domain:'Scripting',level:'Avancé'},
-  {name:'PowerShell',family:'dev',domain:'Scripting',level:'Avancé'},
-  {name:'XML',family:'dev',domain:'Balisage',level:'Avancé'},
-  {name:'XPath',family:'dev',domain:'Balisage',level:'Avancé'},
-  {name:'Markdown',family:'dev',domain:'Balisage',level:'Expert'},
-  {name:'PostgreSQL',family:'dev',domain:'Data',level:'Intermédiaire'},
-  {name:'Pandas',family:'dev',domain:'Data',level:'Intermédiaire'},
-  {name:'PyTest',family:'dev',domain:'Tests',level:'Intermédiaire'},
-  {name:'HTML',family:'dev',domain:'Web',level:'Intermédiaire'},
-  {name:'CSS',family:'dev',domain:'Web',level:'Intermédiaire'},
-  {name:'JavaScript',family:'dev',domain:'Web',level:'Débutant'},
-  {name:'Node.js',family:'dev',domain:'Web',level:'Débutant'},
-  {name:'Cypress',family:'dev',domain:'Tests',level:'Débutant'},
-  // Logiciel & ITSM
-  {name:'Freshdesk',family:'itsm',domain:'ITSM',level:'Avancé'},
-  {name:'Analyse logs',family:'itsm',domain:'Diagnostic',level:'Avancé'},
-  {name:'Tests fonctionnels',family:'itsm',domain:'QA',level:'Avancé'},
-  {name:'Repro. de bugs',family:'itsm',domain:'QA',level:'Avancé'},
-  {name:'Formation users',family:'itsm',domain:'Support',level:'Avancé'},
-  {name:'GLPI',family:'itsm',domain:'ITSM',level:'Intermédiaire'},
-  {name:'MadCap Flare',family:'itsm',domain:'Documentation',level:'Avancé'},
-  {name:'FrameMaker',family:'itsm',domain:'Documentation',level:'Intermédiaire'},
-  {name:'S1000D',family:'itsm',domain:'Documentation',level:'Avancé'},
-  {name:'SyncBackPro',family:'itsm',domain:'Transfert',level:'Intermédiaire'},
-  // ERP & Métier
-  {name:'Business Central',family:'erp',domain:'ERP',level:'Avancé'},
-  {name:'Cubicus',family:'erp',domain:'Finance',level:'Avancé'},
-  {name:'Power Apps',family:'erp',domain:'Power Platform',level:'Intermédiaire'},
-  {name:'Power Automate',family:'erp',domain:'Power Platform',level:'Intermédiaire'},
-  {name:'Cegid',family:'erp',domain:'ERP',level:'Intermédiaire'},
-  {name:'Power BI',family:'erp',domain:'Power Platform',level:'Débutant'},
-  {name:'Dataverse',family:'erp',domain:'Power Platform',level:'Débutant'},
+  {name:'Business Central',family:'erp',domain:'ERP',level:'Expérience professionnelle'},
+  {name:'PowerShell',family:'dev',domain:'Automatisation',level:'Expérience professionnelle'},
+  {name:'Python',family:'dev',domain:'Scripting',level:'Expérience professionnelle'},
+  {name:'Linux',family:'devops',domain:'Système',level:'Expérience professionnelle'},
+  {name:'Docker',family:'devops',domain:'Conteneurisation',level:'Utilisé en projet'},
+  {name:'Docker Compose',family:'devops',domain:'Conteneurisation',level:'Utilisé en projet'},
+  {name:'Ansible',family:'devops',domain:'IaC',level:'Utilisé en projet'},
+  {name:'Terraform',family:'devops',domain:'IaC',level:'Utilisé en projet'},
+  {name:'AWS',family:'devops',domain:'Cloud',level:'Utilisé en projet'},
+  {name:'Traefik',family:'devops',domain:'Infra',level:'Utilisé en projet'},
+  {name:'Prometheus',family:'devops',domain:'Monitoring',level:'Utilisé en projet'},
+  {name:'Grafana',family:'devops',domain:'Monitoring',level:'Utilisé en projet'},
+  {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé en projet'},
+  {name:'FastAPI',family:'dev',domain:'API',level:'Utilisé en projet'},
+  {name:'PyTest',family:'dev',domain:'Tests',level:'Utilisé en projet'},
+  {name:'SQL',family:'dev',domain:'Data',level:'Connaissances pratiques'},
+  {name:'XML',family:'dev',domain:'Balisage',level:'Connaissances pratiques'},
+  {name:'S1000D',family:'itsm',domain:'Documentation',level:'Connaissances pratiques'},
+  {name:'Freshdesk',family:'itsm',domain:'ITSM',level:'Connaissances pratiques'},
+  {name:'Tests fonctionnels',family:'itsm',domain:'QA',level:'Connaissances pratiques'},
+  {name:'Analyse logs',family:'itsm',domain:'Diagnostic',level:'Connaissances pratiques'},
+  {name:'GitHub Actions',family:'devops',domain:'CI/CD',level:'En apprentissage'},
+  {name:'Kubernetes',family:'devops',domain:'Orchestration',level:'En apprentissage'},
+  {name:'Power BI',family:'erp',domain:'Power Platform',level:'En apprentissage'}
 ];
 
 const FAMILIES = [
@@ -464,8 +428,8 @@ const FAMILIES = [
   {id:'erp',    label:'ERP & Métier',             color:'#4A6A8A'}
 ];
 
-const LEVEL_COLORS={'Expert':'#2D6A4F','Avancé':'#4A9A6F','Intermédiaire':'#C8A96E','Débutant':'#8A8578'};
-const LEVEL_BG={'Expert':'rgba(45,106,79,.12)','Avancé':'rgba(74,154,111,.1)','Intermédiaire':'rgba(200,169,110,.1)','Débutant':'rgba(138,133,120,.1)'};
+const LEVEL_COLORS={'Expérience professionnelle':'#2D6A4F','Utilisé en projet':'#4A9A6F','Connaissances pratiques':'#C8A96E','En apprentissage':'#8A8578'};
+const LEVEL_BG={'Expérience professionnelle':'rgba(45,106,79,.12)','Utilisé en projet':'rgba(74,154,111,.1)','Connaissances pratiques':'rgba(200,169,110,.1)','En apprentissage':'rgba(138,133,120,.1)'};
 
 let activeFilters = new Set();
 
@@ -612,6 +576,7 @@ function renderProjets(){
       <p class="proj-type">${p.icon} ${p.type}</p>
       <h3 class="proj-name">${p.name}</h3>
       <p class="proj-desc">${p.desc}</p>
+      <div class="proj-status">${p.status}</div>
       <div class="proj-stack">${p.stack.map(s=>`<span class="ppill">${s}</span>`).join('')}</div>
     </div>`).join('');
 }
@@ -646,10 +611,12 @@ function openModal(type,data){
     html=`<span class="modal-badge perso">Projet perso</span>
       <h2 class="modal-role" style="margin-top:.5rem">${data.icon} ${data.name}</h2>
       <p class="modal-co" style="margin-bottom:.3rem">${data.type}</p>
-      <p class="modal-co">Avancement : <strong style="color:var(--ink)">${data.status}</strong></p>
+      <p class="modal-co">Statut : <strong style="color:var(--ink)">${data.status}</strong></p>
       <p class="modal-desc" style="margin-top:.8rem">${data.desc}</p>
       <p class="modal-section-title">Ce que ça fait</p>
       <ul class="modal-list">${data.missions.map(m=>`<li>${m}</li>`).join('')}</ul>
+      <p class="modal-section-title">Preuves / faits</p>
+      <ul class="modal-list">${(data.proof||[]).map(m=>`<li>${m}</li>`).join('')}</ul>
       <p class="modal-section-title">Stack</p>
       <div class="modal-tags">${data.stack.map(s=>`<span class="modal-tag gold">${s}</span>`).join('')}</div>`;
   }
