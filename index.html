@@ -163,6 +163,12 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .legend-item{display:flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 .legend-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 
+/* Tooltip showing contexts on hover */
+.skill-tooltip{position:absolute;left:50%;transform:translateX(-50%) translateY(0);bottom:calc(100% + .5rem);background:var(--ink);color:var(--cream);padding:.4rem .6rem;border-radius:4px;font-family:var(--mono);font-size:.65rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .12s,transform .12s;z-index:220}
+.skill-tooltip::after{content:'';position:absolute;left:50%;transform:translateX(-50%);bottom:-6px;border:6px solid transparent;border-top-color:var(--ink)}
+.skill-card:hover .skill-tooltip{opacity:1;transform:translateX(-50%) translateY(-6px)}
+@media(max-width:820px){.skill-tooltip{display:none}}
+
 /* CONTACT */
 #contact{background:var(--ink);color:var(--cream);text-align:center}
 #contact .s-label{color:var(--gold)}
@@ -490,6 +496,7 @@ function renderSkills() {
     const famColor = FAMILIES.find(f=>f.id===skill.family)?.color || '#888';
     const lvlColor = LEVEL_COLORS[skill.level] || '#888';
     const lvlBg = LEVEL_BG[skill.level] || 'rgba(0,0,0,.05)';
+    const ctx = (skill.contexts||[]).join(' · ');
     return `<div class="skill-card" style="border-color:${famColor}33;animation:fadeCard .25s ${i*0.02}s ease both">
       <div style="position:absolute;top:0;left:0;right:0;height:2px;background:${famColor};border-radius:2px 2px 0 0"></div>
       <div class="skill-name">${skill.name}</div>
@@ -497,6 +504,7 @@ function renderSkills() {
         <span class="skill-level-badge" style="color:${lvlColor};background:${lvlBg}">${skill.level}</span>
         <span class="skill-domain">${skill.domain}</span>
       </div>
+      <div class="skill-tooltip">${ctx}</div>
     </div>`;
   }).join('');
 
