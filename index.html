@@ -198,6 +198,10 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 .modal-badge{display:inline-block;font-family:var(--mono);font-size:.56rem;letter-spacing:.1em;text-transform:uppercase;padding:.14rem .48rem;border-radius:2px;margin-bottom:.8rem}
 .modal-badge.salarie{background:rgba(45,106,79,.1);border:1px solid rgba(45,106,79,.3);color:var(--jade)}
 .modal-badge.freelance{background:rgba(200,169,110,.1);border:1px solid rgba(200,169,110,.3);color:var(--gold)}
+.modal-gallery{margin:1.5rem 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem}
+.modal-gallery-item{border:1px solid var(--border);border-radius:3px;overflow:hidden;aspect-ratio:1;background:#f0ebe0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,border-color .2s}
+.modal-gallery-item:hover{transform:scale(1.03);border-color:var(--gold)}
+.modal-gallery-item img{width:100%;height:100%;object-fit:cover}
 .modal-badge.perso{background:rgba(26,26,24,.06);border:1px solid var(--border);color:var(--muted)}
 .modal-badge.pro-proj{background:rgba(45,106,79,.08);border:1px solid rgba(45,106,79,.25);color:var(--jade)}
 .modal-badge.formation{background:rgba(200,169,110,.08);border:1px solid rgba(200,169,110,.25);color:var(--gold)}
@@ -387,7 +391,7 @@ const FORMATIONS = [
 
 const PROJETS_PERSO = [
   {wide:true,icon:'☁️',type:'Cloud · DevOps',name:'QuickData / NocoDB sur AWS',desc:'Infrastructure automatisée autour d’un environnement cloud orienté données et automatisation, avec provisionning, conteneurs, routage, bases et observabilité. Un projet très représentatif de mon travail DevOps.',stack:['AWS','Terraform','Ansible','Docker Swarm','Traefik','PostgreSQL','S3','Prometheus','Grafana'],missions:['Provisioning automatisé sur AWS','Déploiement conteneurisé et routage','Base de données PostgreSQL et sauvegardes S3','Observabilité avec Prometheus/Grafana'],status:'Déployé sur AWS',proof:['Infrastructure as Code','Déploiement automatisé','Sauvegardes et observabilité','Environnement reproductible']},
-  {wide:true,icon:'🗂️',type:'Desktop App · QA',name:'AppOrgappr',desc:'Application desktop PySide6 orientée automatisation de fichiers, avec API locale, protections contre les suppressions dangereuses, planification Windows et tests automatisés.',stack:['Python','PySide6','FastAPI','FTP/SFTP','PyTest','Windows'],missions:['Application desktop locale','API locale et logique métier','Transferts FTP/SFTP','Protection contre les suppressions et écrasements'],status:'Version utilisable',proof:['API locale fonctionnelle','Protection de sécurité intégrée','Planificateur Windows','78 tests automatisés']},
+  {wide:true,icon:'🗂️',type:'Desktop App · QA',name:'AppOrgappr',desc:'Application desktop PySide6 orientée gestion de fichiers, avec tri, déplacement, suppression et archivage automatisés ; les transferts FTP/SFTP sont intégrés comme option de déplacement.',stack:['Python','PySide6','FastAPI','FTP/SFTP','PyTest','Windows'],missions:['Gestion de fichiers locale : tri, déplacement, suppression et archivage','Règles de traitement paramétrables selon les dossiers et types de fichiers','Transferts FTP/SFTP en option au sein du déplacement','Protection contre les suppressions et écrasements'],status:'Version utilisable',proof:['Règles de tri et archivage intégrées','Protection de sécurité intégrée','Planificateur Windows','78 tests automatisés']},
   {wide:false,icon:'📄',type:'Documentation technique',name:'S1000D / XML pipeline',desc:'Chaîne de production documentaire autour des standards XML/S1000D, avec validation XSD, règles BREX/Schematron, génération HTML/PDF et API de consultation.',stack:['XML','XSD','Schematron','FastAPI','Python','HTML/PDF'],missions:['Validation des structures XML','Règles de conformité documentaire','Génération de documents','API de consultation et statuts documentaires'],status:'Version utilisable',proof:['Validation XSD et règles BREX','Sorties HTML/PDF','API documentaire','Usage orienté métier']},
   {wide:false,icon:'🧰',type:'DevOps Tooling',name:'devlauncher',desc:'Panneau de pilotage local pour lancer et superviser des commandes de développement avec agent local, Docker et environnement reproductible.',stack:['Docker','Docker Compose','Python','Flask','SQLite'],missions:['Orchestration multi-services','Agent local de supervision','Gestion de projets et pipelines','Import/export d’outils'],status:'Prototype fonctionnel',proof:['Architecture locale claire','Orchestration Docker','Agent dédié','Documentation d’usage']},
   {wide:false,icon:'📚',type:'Contenu pédagogique',name:'Coursite',desc:'Plateforme de publication de contenus pédagogiques en mode statique, avec structure claire, templates et génération automatisée.',stack:['Jekyll','Markdown','Python','GitHub Pages'],missions:['Structuration de cours et modules','Publication statique','Mise en forme Markdown','Navigation et SEO du site'],status:'Version utilisable',proof:['Site publié et structuré','Templates reproductibles','Contenus pédagogiques organisés']},
@@ -608,6 +612,12 @@ function openModal(type,data){
       <p class="modal-section-title">Compétences acquises</p>
       <div class="modal-tags">${data.skills.map(s=>`<span class="modal-tag gold">${s}</span>`).join('')}</div>`;
   } else if(type==='projet'){
+    let gallery='';
+    const projectImages={'apporgappr':['apporgappr-ui-1.png','apporgappr-ui-2.png','apporgappr-ui-3.png'],'quickdata':['quickdata-grafana.png','quickdata-prometheus.png'],'devlauncher':['devlauncher-dashboard.png']};
+    const projKey=Object.keys(projectImages).find(k=>data.name.toLowerCase().includes(k));
+    if(projKey&&projectImages[projKey]){
+      gallery=`<p class="modal-section-title">Captures</p><div class="modal-gallery">${projectImages[projKey].map(img=>`<div class="modal-gallery-item"><img src="assets/projects/${projKey}/${img}" alt="${data.name}"/></div>`).join('')}</div>`;
+    }
     html=`<span class="modal-badge perso">Projet perso</span>
       <h2 class="modal-role" style="margin-top:.5rem">${data.icon} ${data.name}</h2>
       <p class="modal-co" style="margin-bottom:.3rem">${data.type}</p>
@@ -615,6 +625,7 @@ function openModal(type,data){
       <p class="modal-desc" style="margin-top:.8rem">${data.desc}</p>
       <p class="modal-section-title">Ce que ça fait</p>
       <ul class="modal-list">${data.missions.map(m=>`<li>${m}</li>`).join('')}</ul>
+      ${gallery}
       <p class="modal-section-title">Preuves / faits</p>
       <ul class="modal-list">${(data.proof||[]).map(m=>`<li>${m}</li>`).join('')}</ul>
       <p class="modal-section-title">Stack</p>
