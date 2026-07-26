@@ -8,6 +8,8 @@ _fiche-portfolio.md
 
 # Documents personnels (CV, profil) — ne pas publier sur un repo public
 *.pdf
+*.docx
+CV_*.md
 
 # OS / éditeurs
 .DS_Store

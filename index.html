@@ -68,6 +68,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .tag{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border:1px solid var(--border);border-radius:2px;color:var(--muted);background:rgba(255,255,255,.35)}
 .tag.hi{border-color:var(--gold);color:var(--gold);background:rgba(200,169,110,.07)}
 .tag.gr{border-color:var(--jade);color:var(--jade);background:rgba(45,106,79,.06)}
+/* Méta (langues / localisation) : catégories distinctes des compétences */
+.tag-break{flex-basis:100%;height:0;margin-top:.35rem}
+.tag.lang{border-color:var(--ink);color:var(--ink);background:rgba(26,26,24,.05);font-weight:500}
+.tag.loc{border-style:dashed;border-color:var(--border);background:none;color:var(--muted);text-transform:none;letter-spacing:.05em}
 .hero-cta{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;background:var(--ink);color:var(--cream);padding:.8rem 1.7rem;border-radius:2px;transition:background .2s,transform .15s;border:none}
 .hero-cta:hover{background:var(--jade);transform:translateY(-2px)}
 .code-card{width:100%;max-width:360px;background:var(--ink);color:var(--cream);border-radius:4px;padding:1.6rem 1.8rem;font-family:var(--mono);font-size:.75rem;line-height:1.85;animation:fadeUp .75s .18s ease both}
@@ -137,6 +141,9 @@ hr.sdiv{border:none;height:1px;margin-bottom:2.5rem;background:linear-gradient(t
 .proj-card{border:1px solid var(--border);border-radius:4px;padding:1.4rem;background:var(--card-bg);display:flex;flex-direction:column;gap:.75rem;cursor:pointer;transition:border-color .25s,transform .2s}
 .proj-card:hover{border-color:var(--gold);transform:translateY(-3px)}
 .proj-card.wide{grid-column:span 2}
+.proj-card.freelance-card{border-color:rgba(200,169,110,.28);background:rgba(200,169,110,.04)}
+.proj-card.freelance-card:hover{border-color:var(--gold)}
+.proj-card.freelance-card .proj-type{color:var(--gold)}
 .proj-card.pro{border-color:rgba(45,106,79,.2);background:rgba(45,106,79,.03)}
 .proj-card.pro:hover{border-color:var(--jade)}
 .proj-type{font-family:var(--mono);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold)}
@@ -285,6 +292,7 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-anchors" id="nav-anchors">
+    <li><a href="#projets" onclick="closeMenu()">Projets</a></li>
     <li><a href="#parcours" onclick="closeMenu()">Parcours</a></li>
     <li><a href="#competences" onclick="closeMenu()">Compétences</a></li>
     <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
@@ -295,18 +303,19 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 <div class="wrapper">
   <div class="hero-inner">
     <div class="hero-text">
-      <p class="hero-eyebrow">// Support applicatif · QA technique · Automatisation</p>
+      <p class="hero-eyebrow">// Support applicatif · Automatisation · Projets freelance</p>
       <h1 class="hero-name">Grégoire<br/><em>Elmacin</em></h1>
-      <p class="hero-role">Technicien support applicatif et QA technique sur des environnements métiers complexes, avec une forte appétence pour l’automatisation, l’industrialisation des processus et la fiabilisation des flux inter-applicatifs. Je relie support, qualité logicielle et pratiques DevOps pour rendre les systèmes plus robustes.</p>
+      <p class="hero-role">Profil polyvalent, du support à la prod : je conçois des outils, des sites et des automatisations (jusqu'à l'IA appliquée), j'administre des environnements (Google Workspace, Business Central, cloud AWS) et je fiabilise les données et les flux inter-applicatifs (JSON, CSV, XML, SQL, EDI).</p>
       <div class="hero-tags">
-        <span class="tag hi">ERP</span><span class="tag hi">Flux inter-applicatifs</span>
-        <span class="tag gr">Python</span><span class="tag gr">PowerShell</span>
-        <span class="tag">Business Central</span><span class="tag">Docker</span>
-        <span class="tag">DevOps</span><span class="tag">Sevran 🥭</span>
-        <span class="tag">🇫🇷 Natif</span><span class="tag">🇬🇧 Anglais B2</span>
+        <span class="tag hi">Automatisation & IA</span><span class="tag hi">Administration</span>
+        <span class="tag gr">Données & flux</span><span class="tag gr">Support applicatif</span>
+        <span class="tag">Sites & web</span><span class="tag">Python · PowerShell</span>
+        <span class="tag">AWS · Docker</span>
+        <span class="tag-break"></span>
+        <span class="tag lang">🇫🇷 Français natif</span><span class="tag lang">🇬🇧 Anglais B2</span>
       </div>
-      <button class="hero-cta" onclick="document.getElementById('parcours').scrollIntoView({behavior:'smooth'})">
-        Voir mon parcours
+      <button class="hero-cta" onclick="document.getElementById('projets').scrollIntoView({behavior:'smooth'})">
+        Voir mes projets
         <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
       </button>
     </div>
@@ -314,28 +323,43 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
       <div><span class="ln">01</span><span class="cm">// qui suis-je ?</span></div>
       <div><span class="ln">02</span></div>
       <div><span class="ln">03</span><span class="kw">const</span> greg = {</div>
-      <div><span class="ln">04</span>&nbsp;&nbsp;role: <span class="str">"Support · QA · Automatisation"</span>,</div>
+      <div><span class="ln">04</span>&nbsp;&nbsp;vibe: <span class="str">"curieux tech · pragmatique"</span>,</div>
       <div><span class="ln">05</span>&nbsp;&nbsp;base: <span class="str">"Paris / Sevran"</span>,</div>
-      <div><span class="ln">06</span>&nbsp;&nbsp;stack: [<span class="str">"Python"</span>, <span class="str">"PowerShell"</span>,</div>
-      <div><span class="ln">07</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"Docker"</span>, <span class="str">"Business Central"</span>],</div>
-      <div><span class="ln">08</span>&nbsp;&nbsp;dispo: <span class="kw">true</span>,</div>
-      <div><span class="ln">09</span>&nbsp;&nbsp;vibe: <span class="str">"🥭 👾 ⚽ 🎌"</span></div>
+      <div><span class="ln">06</span>&nbsp;&nbsp;builds: [<span class="str">"outils"</span>, <span class="str">"sites"</span>,</div>
+      <div><span class="ln">07</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="str">"automatisations"</span>],</div>
+      <div><span class="ln">08</span>&nbsp;&nbsp;freelance: <span class="kw">true</span>,</div>
+      <div><span class="ln">09</span>&nbsp;&nbsp;easter_egg: <span class="str">"🥭 👾 ⚽ 🎌"</span></div>
       <div><span class="ln">10</span>}</div>
     </div>
   </div>
 </div>
 </section>
 
+<section id="projets">
+<div class="wrapper">
+  <div class="reveal">
+    <p class="s-label">// 01 — Ce que je construis</p>
+    <h2 class="s-title">Pro<em>jets</em> & réalisations</h2>
+  </div>
+  <p class="tl-hint reveal">Cliquer sur un projet pour voir le détail</p>
+
+  <p class="proj-sub-label reveal"><span>// Missions freelance</span></p>
+  <div class="proj-grid" id="proj-freelance-grid"></div>
+
+  <p class="proj-sub-label reveal" style="margin-top:1.6rem"><span>// Projets personnels</span></p>
+  <div class="proj-grid" id="proj-perso-grid"></div>
+</div>
+</section>
+
 <section id="parcours">
 <div class="wrapper">
   <div class="reveal">
-    <p class="s-label">// 01 — Mon parcours</p>
-    <h2 class="s-title">Expé<em>rience</em>, formations & projets</h2>
+    <p class="s-label">// 02 — Mon parcours</p>
+    <h2 class="s-title">Expé<em>rience</em> & formations</h2>
   </div>
   <div class="tabs-bar reveal">
     <button class="tab-btn active" onclick="switchTab('xp',this)">Expériences</button>
     <button class="tab-btn" onclick="switchTab('formation',this)">Formations</button>
-    <button class="tab-btn" onclick="switchTab('projets',this)">Projets</button>
   </div>
 
   <!-- EXPÉRIENCES -->
@@ -356,20 +380,14 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
     <div class="edu-grid" id="edu-grid"></div>
   </div>
 
-  <!-- PROJETS -->
-  <div class="tab-pane" id="tab-projets">
-    <p class="tl-hint reveal">Cliquer sur un projet pour voir le détail</p>
-    <p class="proj-sub-label reveal"><span>// Projets & réalisations</span></p>
-    <div class="proj-grid" id="proj-perso-grid"></div>
-    <div style="display:flex;justify-content:flex-end;padding:.5rem 0 0;opacity:.14;font-size:1.3rem;user-select:none">👻 👻 👻</div>
-  </div>
+  <div style="display:flex;justify-content:flex-end;padding:.5rem 0 0;opacity:.14;font-size:1.3rem;user-select:none">👻 👻 👻</div>
 </div>
 </section>
 
 <section id="competences">
 <div class="wrapper">
   <div class="reveal">
-    <p class="s-label">// 02 — Cartographie</p>
+    <p class="s-label">// 03 — Cartographie</p>
     <h2 class="s-title">Compé<em>tences</em></h2>
   </div>
   <hr class="sdiv"/>
@@ -383,7 +401,7 @@ footer{background:var(--ink);color:rgba(245,240,232,.2);text-align:center;paddin
 <section id="contact">
 <div class="wrapper">
   <div class="reveal">
-    <p class="s-label">// 03 — Me contacter</p>
+    <p class="s-label">// 04 — Me contacter</p>
     <h2 class="contact-title">Travaillons <em>ensemble</em></h2>
     <p class="contact-sub">Ouvert aux opportunités, collaborations et échanges.</p>
     <div class="contact-links">
@@ -429,10 +447,10 @@ document.getElementById('yr').textContent = new Date().getFullYear();
 // DATA
 // ══════════════════════════════════════════════
 const XP = [
-  {type:'salarie',side:'right',period:'Juin 2023 — Août 2025',role:'Technicien Support Applicatif',company:'Delsey Paris',location:'Survilliers',context:'Groupe international · bagagerie · France, Espagne, Italie, Chine',desc:'Support N1/N2 sur Microsoft Dynamics 365 Business Central pour ~100 utilisateurs répartis sur 4 pays. Interface entre utilisateurs métiers, équipes IT et partenaires externes.',missions:['Support fonctionnel et technique N1/N2 pour ~100 utilisateurs (France, Espagne, Italie, Chine)','Analyse d\'incidents, reproduction de bugs et diagnostic avec les développeurs','Tests fonctionnels, recette et TNR des évolutions (jobs batch : commandes, stock, tracking)','Interventions sur les serveurs applicatifs et bases SQL Server','Supervision des flux FTP/SFTP, EDI, échanges inter-applicatifs','Réplication de référentiels (société tampon → sociétés opérationnelles FR/ES/IT/CN) et transferts interco avec ajustements de stock','Interfaçage avec l\'outil de gestion des pièces détachées (GStock)','Gestion des accès, configurations et paramétrage applicatif','Débogage de plugins et analyse de comportements applicatifs','Automatisation PowerShell : archivage, reporting depuis les logs, génération de données de test','Coordination entre équipes métiers, techniques et partenaires externes','Collaboration avec les équipes magasin (hors périmètre Business Central) sur l\'outil de caisse Cegid : stocks, remontées de caisse, communication Cegid ↔ ERP','Formation et accompagnement utilisateurs'],tags:['Business Central','PowerShell','EDI/FTP','ERP','Tests fonctionnels','Support N1/N2']},
-  {type:'salarie',side:'left',period:'Fév 2023 — Juin 2023',role:'Responsable Support & SAV',company:'Orosound',location:'Paris',context:'Fabricant français de casques audio professionnels',desc:'Support technique complet sur casque audio professionnel et son logiciel (Windows/macOS). Ticketing, reproduction de bugs, gestion SAV logistique.',missions:['Ticketing & incidents B2B/B2C via Freshdesk','Tests fonctionnels et de compatibilité (Teams, Zoom, softphones)','Analyse de logs et diagnostic hardware vs software','Pilotage SAV & logistique retours produits','Amélioration de la documentation technique'],tags:['Freshdesk','Tests fonctionnels','SAV','Documentation','Windows/macOS']},
-  {type:'salarie',side:'right',period:'Oct 2022 — Fév 2023',role:'Technicien Support Logiciel',company:'CPI Software',location:'Croissy-sur-Seine',context:'Éditeur de logiciels financiers et solutions bancaires',desc:'Support N1 sur solution de gestion de trésorerie Cubicus. Analyse de logs, requêtes SQL, sécurisation des échanges bancaires.',missions:['Support client & résolution d\'incidents à distance','Diagnostic via analyse de logs et requêtes SQL','Paramétrage modules paiements/trésorerie','Gestion certificats et clés d\'authentification bancaires','Formation clients, rédaction documentation'],tags:['SQL','Analyse logs','Finance','Cubicus','Certificats']},
-  {type:'salarie',side:'left',period:'Sept 2020 — Sept 2022',role:'Rédacteur Technique',company:'SNCF Voyageurs',location:'Saint-Denis',context:'Opérateur ferroviaire national · Technicentre du Landy · Alternance',desc:'Rédaction de modules de maintenance XML S1000D, conception de guides utilisateurs, automatisation VBA.',missions:['Rédaction modules maintenance XML S1000D','Conception guides utilisateurs & supports de formation','Élaboration documents de contrôle (NPAI, DA, BASL)','Automatisation Excel via VBA','Structuration documentaire & conformité référentielle'],tags:['XML/S1000D','VBA','MadCap Flare','Documentation','Ferroviaire']},
+  {type:'salarie',side:'right',period:'Juin 2023 — Août 2025',role:'Technicien Support Applicatif',company:'Delsey Paris',location:'Survilliers',context:'Groupe international · bagagerie · France, Espagne, Italie, Chine',desc:'Support N1/N2 sur Microsoft Dynamics 365 Business Central pour ~100 utilisateurs sur 4 pays (10 à 30 tickets/jour). Interface entre métiers, IT et partenaires externes, avec une forte dimension gestion documentaire (bases de connaissances, procédures).',missions:['Support fonctionnel et technique N1/N2 pour ~100 utilisateurs (France, Espagne, Italie, Chine)','Analyse d\'incidents, reproduction de bugs et diagnostic avec les développeurs','Tests fonctionnels, recette et TNR des évolutions (jobs batch : commandes, stock, tracking)','Interventions sur les serveurs applicatifs et bases SQL Server','Supervision des flux FTP/SFTP, EDI, échanges inter-applicatifs','Réplication de référentiels (société tampon → sociétés opérationnelles FR/ES/IT/CN) et transferts interco avec ajustements de stock','Supervision des imports PIM/PDM produits (alimentés depuis la fabrication en Chine) : suivi des anomalies et fiabilisation des données','Interfaçage avec l\'outil de gestion des pièces détachées (GStock)','Gestion des accès, configurations et paramétrage applicatif','Débogage de plugins et analyse de comportements applicatifs','Automatisation PowerShell : archivage, reporting depuis les logs, génération de données de test','Coordination entre équipes métiers, techniques et partenaires externes','Collaboration avec les équipes magasin (hors périmètre Business Central) sur l\'outil de caisse Cegid : stocks, remontées de caisse, communication Cegid ↔ ERP','Participation à la restructuration des espaces SharePoint du support (procédures, documentation)','Formation et accompagnement utilisateurs'],tags:['Business Central','PowerShell','SQL Server','ERP','Gestion documentaire','Support N1/N2']},
+  {type:'salarie',side:'left',period:'Fév 2023 — Juin 2023',role:'Responsable Support & SAV',company:'Orosound',location:'Paris',context:'Fabricant français de casques audio professionnels',desc:'Support technique complet sur casque audio professionnel et son logiciel (Windows/macOS). Ticketing, reproduction de bugs, gestion SAV logistique.',missions:['Ticketing & incidents B2B/B2C via Freshdesk','Tests fonctionnels et de compatibilité (Teams, Zoom, softphones)','Analyse de logs et diagnostic hardware vs software','Pilotage SAV & logistique retours produits','Reconstruction de la documentation support sur Notion (internalisation : procédures, suivi des problèmes, Kanban)'],tags:['Freshdesk','Tests fonctionnels','SAV','Notion','Windows/macOS']},
+  {type:'salarie',side:'right',period:'Oct 2022 — Fév 2023',role:'Technicien Support Logiciel',company:'CPI Software',location:'Croissy-sur-Seine',context:'Éditeur de logiciels financiers et solutions bancaires',desc:'Support N1 sur solution de gestion de trésorerie Cubicus. Analyse de logs, requêtes SQL, sécurisation des échanges bancaires.',missions:['Support client & résolution d\'incidents à distance','Diagnostic via analyse de logs et requêtes SQL','Paramétrage modules paiements/trésorerie','Gestion des certificats et clés de sécurité pour les échanges bancaires (EBICS, SWIFT)','Formation clients, rédaction documentation'],tags:['SQL','Analyse logs','Finance','Cubicus','EBICS/SWIFT']},
+  {type:'salarie',side:'left',period:'Sept 2020 — Sept 2022',role:'Rédacteur Technique',company:'SNCF Voyageurs',location:'Saint-Denis',context:'Opérateur ferroviaire national · Technicentre du Landy · Alternance',desc:'Rédaction de modules de maintenance XML S1000D, conception de guides utilisateurs, automatisation VBA.',missions:['Rédaction modules maintenance XML S1000D','Conception guides utilisateurs & supports de formation','Élaboration documents de contrôle (NPAI, DA, BASL)','Automatisation VBA : mise à jour en masse des numéros de version de modules XML (livrés par un prestataire externe)','Structuration documentaire conforme au référentiel BASL'],tags:['XML/S1000D','VBA','MadCap Flare','Documentation','Ferroviaire']},
   {type:'salarie',side:'right',period:'Nov 2019 — Août 2020',role:'Nomenclaturiste',company:'Studia',location:'Île-de-France',context:'Bureau d\'études technique',desc:'Analyse de plans mécaniques et électriques, maquettage d\'illustrations, création de catalogues de pièces détachées.',missions:['Analyse plans mécaniques et électriques','Analyse modèles 3D associés','Création et mise à jour catalogues pièces détachées','Intégration et gestion des références en base de données'],tags:['CATIA','SolidWorks','Documentation technique','Nomenclature']},
   {type:'salarie',side:'left',period:'Fév 2019 — Oct 2019',role:'Consultant Maintenance Aéronautique',company:'Takoma / Dassault Aviation',location:'Île-de-France',context:'Consultant FCA Dassault Aviation',desc:'Analyse de la couverture des factures selon les contrats de garantie pour Dassault Aviation.',missions:['Analyse couverture factures selon contrats de garantie','Reporting et suivi des dossiers garantie'],tags:['Aéronautique','Dassault','Garantie','Analyse']},
   {type:'salarie',side:'right',period:'Juin 2018 — Déc 2018',role:'Chef d\'équipe de Production',company:'Sitour',location:'Île-de-France',context:'Production & logistique',desc:'Planification de la production et management d\'une équipe de manutentionnaires.',missions:['Planification des ordres de fabrication','Management d\'une équipe de 8 à 10 manutentionnaires','Gestion des stocks de matière première'],tags:['Management','Production','Planification']},
@@ -448,6 +466,13 @@ const FORMATIONS = [
   {featured:false,year:'2011 — 2013',title:'Bac STI2D — Système d\'Information Numérique',school:'Lycée Le Corbusier · Aubervilliers',desc:'Baccalauréat technologique axé sur les systèmes numériques, l\'électronique et le développement durable.',missions:['Systèmes numériques','Électronique appliquée','Développement durable et éco-conception'],skills:['Systèmes numériques','Électronique','Développement durable']}
 ];
 
+const PROJETS_FREELANCE = [
+  {wide:true,badge:'freelance',category:'Mission freelance',icon:'🌐',type:'Freelance · Site vitrine client',name:'MPA2S — Site vitrine',desc:'Site vitrine pour une entreprise d\'installation de portes automatiques. Contrainte rencontrée : les formulaires de contact ne fonctionnent pas nativement sur un site statique. Solution sur mesure via une web app Google Apps Script.',stack:['Squarespace','Google Apps Script','Google Workspace','DNS'],missions:['Site vitrine avec formulaire de contact','Contournement de la limite du statique via une web app Google Apps Script','Interception du formulaire → envoi vers la messagerie de contact','Google Workspace : création de l\'alias mail client','Configuration DNS complète (MX, SPF, DKIM)'],status:'Livré · en ligne',proof:['Site en production','Formulaire de contact fonctionnel','Domaine et messagerie opérationnels']},
+  {wide:true,badge:'freelance',category:'Mission freelance',icon:'🤖',type:'Freelance · Support client & IA métier',name:'Orosound — Gestion SAV & IA sur mesure',desc:'Mission de support et service client, progressivement automatisée par une IA entraînée sur mesure. Base de connaissance + arbre de décision + automatisation n8n qui exploite cette base pour traiter les tickets, avec un ton de réponse maîtrisé. L\'humain garde la main sur les cas complexes.',stack:['n8n','Base de connaissance','Freshdesk','Python','SQLite'],missions:['Support SAV client B2B/B2C au quotidien','Base de connaissance produit structurée (arbre de décision)','Automatisation n8n exploitant la base pour traiter les tickets','Personnalisation du ton et du style de réponse','Cockpit de centralisation (tickets, expéditions, actions)'],status:'En production · activité en cours',proof:['IA de traitement des tickets courants','Base de connaissance vivante et enrichie','Approche human-in-the-loop sur les cas complexes']},
+  {wide:false,badge:'freelance',category:'Mission freelance',icon:'📘',type:'Freelance · Formation',name:'Formation FrameMaker',desc:'Formation au logiciel Adobe FrameMaker pour la documentation technique structurée. Transmission d\'un outil exigeant utilisé en environnement industriel.',stack:['Adobe FrameMaker','Documentation technique'],missions:['Animation de sessions de formation','Prise en main de l\'interface','Templates et styles documentaires','Workflows de publication'],status:'Missions réalisées',proof:['Sessions animées auprès de professionnels','Support pédagogique structuré']},
+  {wide:false,badge:'freelance',category:'Mission freelance',icon:'📐',type:'Freelance · Formation experte',name:'Formation S1000D',desc:'Formation à la norme S1000D — standard documentaire de l\'aéronautique, de la défense et de l\'industrie lourde. Expertise acquise en alternance SNCF, transmise en tant que formateur.',stack:['S1000D','XML','MadCap Flare','XPath'],missions:['La norme S1000D et son contexte (aéro / défense / ferroviaire)','Structure des Data Modules et des Publications','Balisage XML conforme S1000D','Cas pratiques sur documents de maintenance'],status:'Missions réalisées',proof:['Expertise sur une norme technique pointue','Positionnement expert XML / documentation']}
+];
+
 const PROJETS_PERSO = [
   {wide:true,icon:'☁️',category:'Projet de formation',type:'Cloud · DevOps',name:'QuickData / NocoDB sur AWS',desc:'Infrastructure automatisée autour d’un environnement cloud orienté données et automatisation, avec provisionning, conteneurs, routage, bases et observabilité. Un projet très représentatif de mon travail DevOps.',stack:['AWS','Terraform','Ansible','Docker Swarm','Traefik','PostgreSQL','S3','Prometheus','Grafana'],missions:['Provisioning automatisé sur AWS','Déploiement conteneurisé et routage','Base de données PostgreSQL et sauvegardes S3','Observabilité avec Prometheus/Grafana'],status:'Infrastructure déployée et validée sur AWS',proof:['Ressources AWS provisionnées avec Terraform','Configuration des machines par rôles Ansible','Orchestration NocoDB/PostgreSQL avec Docker Swarm','Sauvegardes PostgreSQL automatisées vers S3','Supervision Prometheus / Grafana / Loki','Pipeline GitLab CI/CD']},
   {wide:true,icon:'🗂️',category:'Projet personnel',type:'Desktop App · QA',name:'AppOrgappr',desc:'Application desktop PySide6 orientée gestion de fichiers, avec tri, déplacement, suppression et archivage automatisés ; les transferts FTP/SFTP sont intégrés comme option de déplacement.',stack:['Python','PySide6','FastAPI','FTP/SFTP','PyTest','Windows'],missions:['Gestion de fichiers locale : tri, déplacement, suppression et archivage','Règles de traitement paramétrables selon les dossiers et types de fichiers','Transferts FTP/SFTP en option au sein du déplacement','Protection contre les suppressions et écrasements'],status:'Version utilisable',proof:['Règles de tri et archivage intégrées','Protection de sécurité intégrée','Planificateur Windows','78 tests automatisés']},
@@ -458,7 +483,7 @@ const PROJETS_PERSO = [
 ];
 
 const SKILL_DATA = [
-  {name:'Business Central',family:'erp',domain:'ERP',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Usage client / Support']},
+  {name:'Business Central',family:'erp',domain:'ERP',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','En apprentissage'],contexts:['Support / usage métier (Delsey)','Approfondissement côté dev en autodidacte (AL, tables, rapports)']},
   {name:'PowerShell',family:'dev',domain:'Automatisation',level:'Utilisé en entreprise',tags:['Utilisé en entreprise'],contexts:['Support automation','Ops scripts']},
   {name:'Python',family:'dev',domain:'Scripting',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['Projets perso','APIs','Automation']},
   {name:'Linux',family:'devops',domain:'Système',level:'Utilisé en formation',tags:['Utilisé en formation','Utilisé dans mes projets'],contexts:['La Capsule (formation)','Projets DevOps']},
@@ -475,6 +500,8 @@ const SKILL_DATA = [
   {name:'Git et GitLab',family:'devops',domain:'VCS',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['QuickData','Projets perso','Découvert chez Delsey']},
   {name:'PostgreSQL',family:'dev',domain:'Data',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets','Utilisé en formation'],contexts:['QuickData','Project DBs']},
   {name:'FastAPI',family:'dev',domain:'API',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['AppOrgappr API','S1000D API']},
+  {name:'n8n',family:'dev',domain:'Automatisation',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['Freelance Orosound (automatisation SAV)','Coursite']},
+  {name:'Google Apps Script',family:'dev',domain:'Automatisation',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['Freelance MPA2S (formulaire → mail)']},
   {name:'PyTest',family:'dev',domain:'Tests',level:'Utilisé dans mes projets',tags:['Utilisé dans mes projets'],contexts:['AppOrgappr tests','CI pipelines']},
   {name:'SQL',family:'dev',domain:'Data',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','Utilisé en formation'],contexts:['CPI Software','Delsey (SQL Server)','DataBird','QuickData (PostgreSQL)']},
   {name:'XML',family:'doc',domain:'Balisage',level:'Utilisé en entreprise',tags:['Utilisé en entreprise','Utilisé dans mes projets'],contexts:['SNCF (alternance)','Projet S1000D']},
@@ -491,7 +518,7 @@ const SKILL_DATA = [
 
 const FAMILIES = [
   {id:'devops', label:'DevOps & Cloud',          color:'#2D6A4F'},
-  {id:'dev',    label:'Développement & Data',     color:'#C8A96E'},
+  {id:'dev',    label:'Développement & Autom.',   color:'#C8A96E'},
   {id:'itsm',   label:'Logiciel & ITSM',          color:'#C1440E'},
   {id:'erp',    label:'ERP & Métier',             color:'#4A6A8A'},
   {id:'doc',    label:'Documentation & Normes',   color:'#6A4A8A'}
@@ -679,15 +706,19 @@ function renderFormations(){
 // ══════════════════════════════════════════════
 // PROJETS
 // ══════════════════════════════════════════════
-function renderProjets(){
-  document.getElementById('proj-perso-grid').innerHTML=PROJETS_PERSO.map((p,i)=>`
-    <div class="proj-card${p.wide?' wide':''} reveal" role="button" tabindex="0" aria-label="${p.name.replace(/"/g,'&quot;')} — voir le détail" onclick="openModal('projet',PROJETS_PERSO[${i}])" onkeydown="cardKey(event,this)">
+function projCard(p,arr,i){
+  const fl = p.badge==='freelance' ? ' freelance-card' : '';
+  return `<div class="proj-card${p.wide?' wide':''}${fl} reveal" role="button" tabindex="0" aria-label="${p.name.replace(/"/g,'&quot;')} — voir le détail" onclick="openModal('projet',${arr}[${i}])" onkeydown="cardKey(event,this)">
       <p class="proj-type">${p.icon} ${p.type}</p>
       <h3 class="proj-name">${p.name}</h3>
       <p class="proj-desc">${p.desc}</p>
       <div class="proj-status">${p.status}</div>
       <div class="proj-stack">${p.stack.map(s=>`<span class="ppill">${s}</span>`).join('')}</div>
-    </div>`).join('');
+    </div>`;
+}
+function renderProjets(){
+  document.getElementById('proj-freelance-grid').innerHTML=PROJETS_FREELANCE.map((p,i)=>projCard(p,'PROJETS_FREELANCE',i)).join('');
+  document.getElementById('proj-perso-grid').innerHTML=PROJETS_PERSO.map((p,i)=>projCard(p,'PROJETS_PERSO',i)).join('');
 }
 
 // ══════════════════════════════════════════════
@@ -724,12 +755,14 @@ function openModal(type,data){
       gallery=`<p class="modal-section-title">Captures</p><div class="modal-gallery">${projectImages[projKey].map((img,i)=>`<div class="modal-gallery-item" onclick="openLightbox('${projKey}',${i})"><img src="assets/projects/${projKey}/${img}" alt="${data.name}"/></div>`).join('')}</div>`;
       window.currentGallery={project:projKey,images:projectImages[projKey]};
     }
-    html=`<span class="modal-badge ${data.category==='Projet de formation'?'formation':'perso'}">${data.category||'Projet perso'}</span>
+    const badgeCls = data.badge==='freelance' ? 'freelance' : data.category==='Projet de formation' ? 'formation' : 'perso';
+    const badgeLbl = data.badge==='freelance' ? 'Mission freelance' : (data.category||'Projet perso');
+    html=`<span class="modal-badge ${badgeCls}">${badgeLbl}</span>
       <h2 class="modal-role" style="margin-top:.5rem">${data.icon} ${data.name}</h2>
       <p class="modal-co" style="margin-bottom:.3rem">${data.type}</p>
       <p class="modal-co">Statut : <strong style="color:var(--ink)">${data.status}</strong></p>
       <p class="modal-desc" style="margin-top:.8rem">${data.desc}</p>
-      <p class="modal-section-title">Ce que ça fait</p>
+      <p class="modal-section-title">${data.badge==='freelance'?'Ce qui a été livré':'Ce que ça fait'}</p>
       <ul class="modal-list">${data.missions.map(m=>`<li>${m}</li>`).join('')}</ul>
       ${gallery}
       <p class="modal-section-title">Réalisation</p>
